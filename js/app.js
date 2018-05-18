@@ -30,21 +30,13 @@ $(()=>{
 function moveShooter(){
   $(document).on('keydown', function(e){
     switch(e.which){
-      // case 38:
-      // console.log('up');
-      // $shooter.css('top', '-=25px')
-      // break;
       case 39:
       console.log('right');;
-      $shooter.css('left', '+=25px')
+      $shooter.css('left', '+=25px');
       break;
-      // case 40:
-      // console.log('down');;
-      // $shooter.css('top', '+=25px')
-      // break;
       case 37:
       console.log('left');
-      $shooter.css('left', '-=25px')
+      $shooter.css('left', '-=25px');
       break;
     }
   });
@@ -52,9 +44,28 @@ function moveShooter(){
 
 moveShooter();
 
+function animateAliens(){
+  let direction = true;
+  const $divWidth = $('.main-box').width();
+  const $alienWidth = $('.box-group').width();
+  setInterval(function(){
+    if(direction){
+      if($('.box-group').position().left + $alienWidth > $divWidth) direction = false;
+      $('.box-group').css('left', '+=10px');
+      // $('.box-group').css('bottom', '-=10px');
+    } else {
+      if($('.box-group').position().left < 0) direction = true;
+      $('.box-group').css('left', '-=10px');
+    }
+  }, 100);
+}
+// animateAliens()
+
+
 // set the speed at which it can move
 
 // make a grid of aliens that sit in the middle of the box. 5 x 11 images.
+
 
 // make the main object shoot
 

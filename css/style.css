@@ -1,6 +1,6 @@
 .main-box {
   width: 800px;
-  height: 800px;
+  height: 600px;
   border: 2px solid red;
   margin: 0 auto;
   position: relative; }
@@ -13,5 +13,19 @@
   position: absolute;
   background-position: bottom;
   bottom: 0; }
+
+.box-group {
+  border: 1px solid red;
+  height: 300px;
+  width: 400px;
+  margin: 0 auto;
+  display: flex;
+  position: absolute; }
+
+.box {
+  border: 1px solid red;
+  height: 40px;
+  width: 40px;
+  margin: auto; }
 
 /*# sourceMappingURL=style.css.map */
