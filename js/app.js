@@ -30,28 +30,33 @@ $(()=>{
         case 39:
           console.log('right');
           $shooter.css('left', '+=25px');
+          $shooterFire.css('left','+=25px');
           break;
         case 37:
           console.log('left');
           $shooter.css('left', '-=25px');
+          $shooterFire.css('left','-=25px');
           break;
       }
     });
   }
   moveShooter();
-  //
-  function shoot(){
-    $(document).on('keydown', function(e){
-      switch(e.which){
-        case 32:
-          console.log('fire');
-          $shooterFire.css('bottom','+=25px');
-          break;
-      }
-    })
-}
-shoot();
 
+// function to shoot. set interval isn't working
+  $(document).on('keydown', function(e){
+    if(e.which === 32){
+      //creates bullet div
+      //sets initial position of bullet, wherever character is at time
+    }
+  });
+
+  //function bulletMove
+  //increases bottom of bullet
+  // $shooterFire.css('bottom','+=1px');
+
+  setInterval(bulletMove, 10);
+
+// function to move boxes from left to right. Bottom isn't working
   function animateAliens(){
     let direction = true;
     const $divWidth = $('.main-box').width();
@@ -68,8 +73,6 @@ shoot();
     }, 1000);
   }
   animateAliens()
-
-
 
   // set the speed at which it can move
 
