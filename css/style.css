@@ -14,6 +14,15 @@
   background-position: bottom;
   bottom: 0; }
 
+.shooter-fire {
+  width: 2px;
+  height: 10px;
+  background-color: green;
+  margin: 0 auto;
+  position: absolute;
+  background-position: bottom;
+  bottom: 0; }
+
 .box-group {
   border: 1px solid red;
   height: 300px;
