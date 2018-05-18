@@ -1,0 +1,22 @@
+use jquery toArray() to make an array with the id of every div
+
+  e.g. $( "div" ).toArray()
+
+create a function that houses forEach loop to loop through every div.
+
+on every loop check if there's been a collision between element one and each element in the array.
+
+
+collision(function(mainElement, arrayElement)){
+
+if ($elOffset.left < $el_2_Offset.left + $el_2.width() &&
+    $elOffset.left + $el.width() > $el_2_Offset.left &&
+    $elOffset.top < $el_2_Offset.top + $el_2.height() &&
+    $el.height() + $elOffset.top > $el_2_Offset.top) {
+
+      $el.remove()
+    }
+
+    });
+
+create a setInterval function and call the loop function every second

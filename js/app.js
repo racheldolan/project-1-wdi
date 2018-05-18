@@ -1,8 +1,25 @@
-console.log('js loaded');
+$(()=>{
+
+  const $boxes = $('.box').toArray();
+
+  console.log($boxes);
+
+  // $boxes.each(function(index, obj) {
+  //   console.log('div' + index + ':' + $(this).attr('class'));
+  // });
+
+// iterates through the boxes array
+  $('.box').each(function(index, obj) {
+    console.log('div' + index + ':' + $(this).attr('class'));
+  });
+
+
+
 
 // make a box in which the game will take place and a panel on the right for future scores
 
 // make an array of all of the box divs
+
 
 // create an object that sits at the bottom of the box, in the middle by default
 
@@ -40,3 +57,4 @@ console.log('js loaded');
 // every time the interval runs check the collision
 
 // function that detects collision on every
+})
