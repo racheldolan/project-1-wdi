@@ -1,5 +1,5 @@
 $(()=>{
-
+  const $shooter = $('.shooter');
   const $boxes = $('.box').toArray();
 
   console.log($boxes);
@@ -27,6 +27,30 @@ $(()=>{
 
 // Use jquery css to write a function to select the object and enable it to move
 // left and right but not up and down - do this using a switch statement
+function moveShooter(){
+  $(document).on('keydown', function(e){
+    switch(e.which){
+      // case 38:
+      // console.log('up');
+      // $shooter.css('top', '-=25px')
+      // break;
+      case 39:
+      console.log('right');;
+      $shooter.css('left', '+=25px')
+      break;
+      // case 40:
+      // console.log('down');;
+      // $shooter.css('top', '+=25px')
+      // break;
+      case 37:
+      console.log('left');
+      $shooter.css('left', '-=25px')
+      break;
+    }
+  });
+}
+
+moveShooter();
 
 // set the speed at which it can move
 
