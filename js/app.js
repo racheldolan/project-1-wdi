@@ -1,7 +1,10 @@
 $(()=>{
   const $shooter = $('.shooter');
   const $boxes = $('.box').toArray();
-  const $shooterFire = $('.shooter-fire');
+  const $mainBox = $('.main-box');
+  const $gun = $('.gun');
+  let $shooterFire;
+
   console.log($boxes);
 
   // $boxes.each(function(index, obj) {
@@ -28,35 +31,39 @@ $(()=>{
     $(document).on('keydown', function(e){
       switch(e.which){
         case 39:
-          console.log('right');
+        // console.log('right');
           $shooter.css('left', '+=25px');
-          $shooterFire.css('left','+=25px');
           break;
         case 37:
-          console.log('left');
+        // console.log('left');
           $shooter.css('left', '-=25px');
-          $shooterFire.css('left','-=25px');
           break;
       }
     });
   }
   moveShooter();
 
-// function to shoot. set interval isn't working
+
   $(document).on('keydown', function(e){
     if(e.which === 32){
       //creates bullet div
-      //sets initial position of bullet, wherever character is at time
+      $shooterFire = $shooter.append('<div>bullet</div>');
+      $shooterFire.onload = function(){
+        $shooterFire.addClass('shooter-fire');
+        //sets initial position of bullet, wherever character is at time
+      };
     }
+    $shooter.offset($shooterFire);
   });
 
-  //function bulletMove
-  //increases bottom of bullet
-  // $shooterFire.css('bottom','+=1px');
+  function bulletMove(){
+    $shooterFire.css('bottom','+=5px');
+  }
 
-  setInterval(bulletMove, 10);
+  setInterval(bulletMove, 1000);
 
-// function to move boxes from left to right. Bottom isn't working
+
+  // function to move boxes from left to right. Bottom isn't working
   function animateAliens(){
     let direction = true;
     const $divWidth = $('.main-box').width();
@@ -74,14 +81,7 @@ $(()=>{
   }
   animateAliens()
 
-  // set the speed at which it can move
 
-  // make a grid of aliens that sit in the middle of the box. 5 x 11 images.
-
-
-  // make the main object shoot
-
-  // make the aliens move from left to right and down a row each time.
 
   // make collision detection between aliens and main object
 

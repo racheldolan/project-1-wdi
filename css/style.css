@@ -17,10 +17,7 @@
 .shooter-fire {
   width: 2px;
   height: 10px;
-  background-color: green;
-  position: absolute;
-  background-position: bottom;
-  bottom: 0; }
+  background-color: green; }
 
 .box-group {
   border: 1px solid red;
