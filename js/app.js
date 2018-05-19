@@ -2,8 +2,12 @@ $(()=>{
   const $shooter = $('.shooter');
   const $boxes = $('.box').toArray();
   const $mainBox = $('.main-box');
+  const $box = $('.box');
+  // const $canvas = $('canvas');
   const $gun = $('.gun');
+
   let $shooterFire;
+  let $bullet;
 
   console.log($boxes);
 
@@ -47,20 +51,21 @@ $(()=>{
   $(document).on('keydown', function(e){
     if(e.which === 32){
       //creates bullet div
-      $shooterFire = $shooter.append('<div>bullet</div>');
-      $shooterFire.onload = function(){
-        $shooterFire.addClass('shooter-fire');
+      $bullet = $('<div />');
+      $bullet.addClass('shooter-fire');
+      $('.main-box').append($bullet);
+      $shooter.offset($('shooter-fire'));
         //sets initial position of bullet, wherever character is at time
-      };
-    }
-    $shooter.offset($shooterFire);
-  });
+      }
+    });
+
+  // });
 
   function bulletMove(){
-    $shooterFire.css('bottom','+=5px');
+    $('.shooter-fire').css('bottom','+=5px');
   }
 
-  setInterval(bulletMove, 1000);
+  setInterval(bulletMove, 100);
 
 
   // function to move boxes from left to right. Bottom isn't working
@@ -77,13 +82,24 @@ $(()=>{
         if($('.box-group').position().left < 0) direction = true;
         $('.box-group').css('left', '-=10px');
       }
-    }, 1000);
+    }, 100);
   }
   animateAliens()
 
-
-
   // make collision detection between aliens and main object
+
+  let $bulletOffset = $bullet.offset();
+  let $boxOffset = $box.offset();
+
+    const left = parseInt($('body').css('left'));
+    const top = parseInt($('body').css('top'));
+
+  if ($bulletOffset.left < $boxOffset.left + $boxOffset.width &&
+     $bulletOffset.left + $bulletOffset.width > $boxOffset.left &&
+     $bulletOffset.top < $boxOffset.top + $boxOffset.height() &&
+     $bulletOffset.height + $bulletOffset.top > $boxOffset.top) {
+      console.log('hit');
+    }
 
   // make the main object shoot
 
@@ -104,4 +120,4 @@ $(()=>{
   // every time the interval runs check the collision
 
   // function that detects collision on every
-})
+});

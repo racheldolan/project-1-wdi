@@ -2,8 +2,7 @@
   width: 800px;
   height: 600px;
   border: 2px solid red;
-  margin: 0 auto;
-  position: relative; }
+  margin: 0 auto; }
 
 .shooter {
   background-image: url("/Users/racheldolan/development/project-1-wdi/images/shooter2.png");
@@ -17,7 +16,11 @@
 .shooter-fire {
   width: 2px;
   height: 10px;
-  background-color: green; }
+  background-color: green;
+  margin: 0 auto;
+  position: absolute;
+  background-position: bottom;
+  bottom: 0; }
 
 .box-group {
   border: 1px solid red;
