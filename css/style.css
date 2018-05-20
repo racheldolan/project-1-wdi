@@ -1,3 +1,9 @@
+h3 {
+  color: white;
+  text-align: center;
+  font-family: Cosmic Alien;
+  font-size: 30px; }
+
 .main-box {
   width: 800px;
   height: 600px;
@@ -37,6 +43,7 @@
   background-color: green;
   height: 20px;
   width: 20px;
-  margin: auto; }
+  margin: auto;
+  flex-wrap: wrap; }
 
 /*# sourceMappingURL=style.css.map */
