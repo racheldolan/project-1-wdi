@@ -20,3 +20,23 @@ if ($elOffset.left < $el_2_Offset.left + $el_2.width() &&
     });
 
 create a setInterval function and call the loop function every second
+
+// make the main object shoot
+
+// make collision detection between shooting and aliens
+
+// hide aliens upon collision using jquery
+
+// increase score if aliens collide with main object
+
+// game over if aliens collide with main object
+
+// make the aliens shoot down
+
+// // make collision detection between shooting and main object
+
+// .remove will remove each alien from the dom
+
+// every time the interval runs check the collision
+
+// function that detects collision on every
