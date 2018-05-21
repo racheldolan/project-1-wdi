@@ -7,9 +7,15 @@ $(()=>{
   let direction = true;
   const $divWidth = $('.main-box').width();
   const $boxWidth = $('.box-group').width();
-  let marginBotton;
+  // let marginBotton;
+  let $characterPosition;
+  // $bulletPosition declared but not used
+  let $bulletPosition;
+
   // $('.shooter-fire').css('top', ($gameCharacter.offset().top + $('.shooter-fire').height())+ 'px');
   // console.log($boxes);
+
+// when the gun fires, store the position of the gun in a variable. Use this position to guide the bullet.
 
   // moves character left and right
   function moveCharacter(){
@@ -31,22 +37,26 @@ $(()=>{
 
   $(document).on('keydown', function(e){
     if(e.which === 32){
-      marginBotton +=5;
+      // marginBotton +=5;
       //creates bullet div
       const $bullet = $('<div />');
       $bullet.addClass('shooter-fire');
       $('.main-box').append($bullet);
       shooterFireArray.push($bullet);
       console.log(shooterFireArray);
+      $characterPosition = $gameCharacter.offset().left;
     }
-    initialPosition(marginBotton);
+    initialBulletPosition();
   });
 
   // //set initial position of bullet, wherever character is at time
-  function initialPosition(number){
-    $('.shooter-fire').css('top', number + 'px');
+  function initialBulletPosition(){
+    $('.shooter-fire').css('left', $characterPosition + 'px');
   }
 
+  function bulletPath(){
+
+  }
 
   // function to fire the bullet and keep it moving
   function bulletMove(){
