@@ -1,13 +1,14 @@
 $(()=>{
   const $gameCharacter = $('.shooter');
   const $boxes = $('.box').toArray();
+  console.log($boxes);
+  const $shooterFireArray = [];
   const $mainBox = $('.main-box');
   const $box = $('.box');
   // const $canvas = $('canvas');
-  const $gun = $('.gun');
-
   let $shooterFire;
   let $bullet;
+
 
   console.log($boxes);
 
@@ -16,9 +17,9 @@ $(()=>{
   // });
 
   // iterates through the boxes array
-  $('.box').each(function(index, obj) {
-    console.log('div' + index + ':' + $(this).attr('class'));
-  });
+  // $('.box').each(function(index, obj) {
+  //   console.log('div' + index + ':' + $(this).attr('class'));
+  // });
 
   // make a box in which the game will take place and a panel on the right for future scores
 
@@ -29,9 +30,8 @@ $(()=>{
 
   // enable the object with jquery
 
-  // Use jquery css to write a function to select the object and enable it to move
-  // left and right but not up and down - do this using a switch statement
-  function moveShooter(){
+  // moves character left and right
+  function moveCharacter(){
     $(document).on('keydown', function(e){
       switch(e.which){
         case 39:
@@ -45,7 +45,7 @@ $(()=>{
       }
     });
   }
-  moveShooter();
+  moveCharacter();
 
 
   $(document).on('keydown', function(e){
@@ -54,10 +54,12 @@ $(()=>{
       $bullet = $('<div />');
       $bullet.addClass('shooter-fire');
       $('.main-box').append($bullet);
-
+      $shooterFireArray.push($bullet);
+      console.log($shooterFireArray);
       //need to set initial position of bullet, wherever character is at time
     }
   });
+
   // function to fire the bullet and keep it moving
   function bulletMove(){
     $('.shooter-fire').css('bottom','+=5px');
@@ -84,35 +86,34 @@ $(()=>{
   //   setInterval(collisionDetection, 1000);
   // }
   // loop through each box in the boxes array
-  function collisionDetection(){
-    for (let i = 0; i < $boxes.length; i++) {
-
-
-      let $boxOffset = $boxes[i].offset();
-      let $bulletOffset = $('.shooter-fire').offset();
-
-      if($bulletOffset.left < $boxOffset.left + $boxOffset.width() &&
-      $bulletOffset.left + $bulletOffset.width() > $boxOffset.left &&
-      $bulletOffset.top < $boxOffset.top + $boxOffset.height() &&
-      $bulletOffset.height() + $bulletOffset.top > $boxOffset.top) {
-        console.log('hit');
-      }
-      else {
-        console.log('no hit');
-      }
-    }
-  }
-
-setInterval(collisionDetection, 1000);
+//   function collisionDetection(){
+//     for (let i = 0; i < $boxes.length; i++) {
+//
+//       let $boxOffset = $boxes[i].offset();
+//       let $bulletOffset = $('.shooter-fire').offset();
+//
+//       if($bulletOffset.left < $boxOffset.left + $boxOffset.width() &&
+//       $bulletOffset.left + $bulletOffset.width() > $boxOffset.left &&
+//       $bulletOffset.top < $boxOffset.top + $boxOffset.height() &&
+//       $bulletOffset.height() + $bulletOffset.top > $boxOffset.top) {
+//         console.log('hit');
+//       }
+//       else {
+//         console.log('no hit');
+//       }
+//     }
+//   }
+//
+// setInterval(collisionDetection, 1000);
 
   // function to move boxes from left to right. Bottom isn't working
   function animateAliens(){
     let direction = true;
     const $divWidth = $('.main-box').width();
-    const $alienWidth = $('.box-group').width();
+    const $boxWidth = $('.box-group').width();
     setInterval(function(){
       if(direction){
-        if($('.box-group').position().left + $alienWidth > $divWidth) direction = false;
+        if($('.box-group').position().left + $boxWidth > $divWidth) direction = false;
         $('.box-group').css('left', '+=10px');
         $('.box-group').css('bottom', '-=1px');
       } else {
@@ -124,21 +125,30 @@ setInterval(collisionDetection, 1000);
 
   animateAliens()
 
-  // make collision detection between aliens and main object
+  // make collision detection between boxes and bullet
+
+  function collisionDetection(){
+
+    if(!$shooterFireArray.length) return false;
 
 
-  // function collisionDetection(){
-  //   if($bulletOffset.left < $('.box').offset().left + $('.box').offset().width() &&
-  //   $('.shooter-fire').offset().left + $('.shooter-fire').offset().width() > $('.box').offset().left &&
-  //   $('.shooter-fire').offset().top < $('.box').offset().top + $('.box').offset().height() &&
-  //   $('.shooter-fire').offset().height() + $('.shooter-fire').offset().top > $('.box').offset().top) {
-  //     console.log('hit');
-  //   }
-  //   else{
-  //     console.log('no hit');
-  //   }
-  //   setInterval(collisionDetection, 100);
-  // }
+    for(let i = 0; i < $shooterFireArray.length; i++){
+      for(let j = 0; j < $boxes.length; j++){
+
+        // Loop through $('.shooter-fire')
+        // then loop through $(.box)
+        if(($shooterFireArray[i].offset().left < $boxes[j].offset().left) + ($boxes[j].width()) &&
+        ($shooterFireArray[i].offset().left + $shooterFireArray[i].width()) > ($boxes[j].offset().left) &&
+        ($shooterFireArray[i].offset().top < $boxes[j].offset().top) + ($boxes[j].height()) &&
+        ($shooterFireArray[i].height() + $shooterFireArray[i].offset().top) > ($boxes[j].offset().top)) {
+          console.log('hit');
+        }  else {
+          console.log('no hit');
+        }
+      }
+    }
+  }
+  setInterval(collisionDetection, 1000);
 
   // make the main object shoot
 
