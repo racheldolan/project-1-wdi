@@ -8,9 +8,9 @@ $(()=>{
   const $divWidth = $('.main-box').width();
   const $boxWidth = $('.box-group').width();
   // let marginBotton;
-  let $characterPosition;
+  const $characterPosition = [];
   // $bulletPosition declared but not used
-  let $bulletPosition;
+  // let $bulletPosition;
 
   // $('.shooter-fire').css('top', ($gameCharacter.offset().top + $('.shooter-fire').height())+ 'px');
   // console.log($boxes);
@@ -44,19 +44,21 @@ $(()=>{
       $('.main-box').append($bullet);
       shooterFireArray.push($bullet);
       console.log(shooterFireArray);
-      $characterPosition = $gameCharacter.offset().left;
+      $characterPosition.push($gameCharacter.offset().left);
+      $bullet.css('left', ($characterPosition[$characterPosition.length-1] + $gameCharacter.width()/2) + 'px');
+      console.log($characterPosition, $characterPosition[$characterPosition.length - 1]);
     }
-    initialBulletPosition();
+    // initialBulletPosition();
   });
 
   // //set initial position of bullet, wherever character is at time
-  function initialBulletPosition(){
-    $('.shooter-fire').css('left', $characterPosition + 'px');
-  }
+  // function initialBulletPosition(){
+  //   $('.shooter-fire').css('left', $characterPosition[$characterPosition.length-1] + 'px');
+  // }
 
-  function bulletPath(){
-
-  }
+  // function bulletPath(){
+  //
+  // }
 
   // function to fire the bullet and keep it moving
   function bulletMove(){
