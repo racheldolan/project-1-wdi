@@ -59,7 +59,7 @@ $(()=>{
       }
     });
   }
-  moveCharacter();
+
 
 
   $(document).on('keydown', function(e){
@@ -92,7 +92,6 @@ $(()=>{
 
   // function to move boxes from left to right
   function animateAliens(){
-
     setInterval(function(){
       if(direction){
         if($('.box-group').position().left + $boxWidth > $divWidth) direction = false;
@@ -108,7 +107,11 @@ $(()=>{
     }, 100);
   }
 
+$game.on('click', function(){
   animateAliens();
+  moveCharacter();
+})
+  // animateAliens();
 
   // make collision detection between boxes and bullet
 
