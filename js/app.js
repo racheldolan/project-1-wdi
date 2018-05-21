@@ -43,7 +43,10 @@ $(()=>{
       $('.main-box').append($bullet);
       shooterFireArray.push($bullet);
       console.log(shooterFireArray);
-      //need to set initial position of bullet, wherever character is at time
+    //set initial position of bullet, wherever character is at time
+      $($bullet).css('top', $($gameCharacter).offset().top);
+      $($bullet).css('left', $($gameCharacter).offset().left);
+
     }
   });
 
@@ -119,7 +122,8 @@ $(()=>{
     if(!shooterFireArray.length) return false;
     // console.log(shooterFireArray);
     for(let i = 0; i < shooterFireArray.length; i++){
-      $boxes.each(function() {
+      $boxes.each(function(index) {
+
         // console.log($(this).offset());
         // console.log(shooterFireArray[i]);
         // console.log($boxes[i]);
@@ -133,9 +137,9 @@ $(()=>{
         (shooterFireArray[i].offset().top < $(this).offset().top) + ($(this).height()) &&
         (shooterFireArray[i].height() + shooterFireArray[i].offset().top) > ($(this).offset().top)) {
           console.log('hit');
-
+          console.log($(this).index);
         }
-      });
+      })
     }
     // }
   }
