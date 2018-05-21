@@ -1,11 +1,21 @@
 body {
   background-image: url("/Users/racheldolan/development/project-1-wdi/images/NGC-2403.jpg"); }
 
-h3 {
+h1 {
   color: white;
   text-align: center;
   font-family: Cosmic Alien;
   font-size: 30px; }
+
+h3 {
+  font-family: Cosmic Alien;
+  font-size: 20px;
+  text-align: center; }
+
+p {
+  font-family: Cosmic Alien;
+  font-size: 15px;
+  text-align: center; }
 
 .main-box {
   width: 800px;
@@ -38,7 +48,7 @@ h3 {
   position: absolute;
   flex-direction: row; }
 
-.box {
+.rows .cols {
   background-color: green;
   height: 10px;
   width: 20px;

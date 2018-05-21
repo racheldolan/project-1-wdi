@@ -1,22 +1,48 @@
 $(()=>{
+  const rows = 9, cols = 5;
   const $gameCharacter = $('.shooter');
-  const $boxes = $('.box');
+  // const $boxes = $('.box');
   const shooterFireArray = [];
+  const gridArray = [];
   const $mainBox = $('.main-box');
-  const $box = $('.box');
+  // const $box = $('.box');
   let direction = true;
   const $divWidth = $('.main-box').width();
   const $boxWidth = $('.box-group').width();
   const audio = $('audio');
   // let marginBotton;
   const $characterPosition = [];
+  const $button = $('button');
+  const $game = $('.game');
+
+// function to make the instructions disappear
+  $game.on('click', function(){
+    if($('.game').css('display', 'block')){
+      $('.game').css('display', 'none');
+    } else {
+      $('.game').css('display', 'block');
+    }
+  })
   // $bulletPosition declared but not used
   // let $bulletPosition;
 
   // $('.shooter-fire').css('top', ($gameCharacter.offset().top + $('.shooter-fire').height())+ 'px');
   // console.log($boxes);
 
-// when the gun fires, store the position of the gun in a variable. Use this position to guide the bullet.
+  // Generate grid of divs
+  for (let i = 0; i < rows; i++) {
+    const $newDiv = $('<div>');
+    $newDiv.addClass('rows');
+    $('.box-group').append($newDiv);
+    gridArray.push($newDiv);
+    for (let j = 0; j < cols; j++) {
+      const $newDiv2 = $('<div>');
+      $newDiv2.addClass('cols');
+      $newDiv.append($newDiv2);
+      gridArray.push($newDiv2);
+      // console.log(gridArray);
+    }
+  }
 
   // moves character left and right
   function moveCharacter(){
@@ -44,23 +70,17 @@ $(()=>{
       $bullet.addClass('shooter-fire');
       $('.main-box').append($bullet);
       shooterFireArray.push($bullet);
-      // console.log(shooterFireArray);
+      // //set initial position of bullet, wherever character is at time
       $characterPosition.push($gameCharacter.offset().left);
       $bullet.css('left', ($characterPosition[$characterPosition.length-1] + $gameCharacter.width()/2) + 'px');
-      audio.src = 'sounds/shoot.wav';
-      audio.play();
+      // audio.src = 'sounds/shoot.wav';
+      // audio.play();
       // console.log($characterPosition, $characterPosition[$characterPosition.length - 1]);
     }
     // initialBulletPosition();
   });
-
-  // //set initial position of bullet, wherever character is at time
   // function initialBulletPosition(){
   //   $('.shooter-fire').css('left', $characterPosition[$characterPosition.length-1] + 'px');
-  // }
-
-  // function bulletPath(){
-  //
   // }
 
   // function to fire the bullet and keep it moving
@@ -70,7 +90,7 @@ $(()=>{
   // need to add clear interval here
   setInterval(bulletMove, 100);
 
-  // function to move boxes from left to right. Bottom isn't working
+  // function to move boxes from left to right
   function animateAliens(){
 
     setInterval(function(){
@@ -96,8 +116,8 @@ $(()=>{
     if(!shooterFireArray.length) return false;
     // console.log(shooterFireArray);
     for(let i = 0; i < shooterFireArray.length; i++){
-      $boxes.each(function() {
-
+      for(let j = 0; j < gridArray.length; j++) {
+      // $('.rows').each(function() {
         // console.log($(this).offset());
         // console.log(shooterFireArray[i]);
         // console.log($boxes[i]);
@@ -106,44 +126,64 @@ $(()=>{
 
         // Loop through $('.shooter-fire')
         // then loop through $(.box)
-        if((shooterFireArray[i].offset().left < $(this).offset().left) + ($(this).width()) &&
-        (shooterFireArray[i].offset().left + shooterFireArray[i].width()) > ($(this).offset().left) &&
-        (shooterFireArray[i].offset().top < $(this).offset().top) + ($(this).height()) &&
-        (shooterFireArray[i].height() + shooterFireArray[i].offset().top) > ($(this).offset().top)) {
+        if((shooterFireArray[i].offset().left < gridArray[j].offset().left) + gridArray[j].width()) &&
+        (shooterFireArray[i].offset().left + shooterFireArray[i].width()) > (gridArray[j].offset().left) &&
+        (shooterFireArray[i].offset().top < gridArray[j].offset().top) + (gridArray[j].height()) &&
+        (shooterFireArray[i].height() + shooterFireArray[i].offset().top) > (gridArray[j].offset().top) {
           console.log('hit');
         }
-      });
+      };
     }
+  }
+
+    // for(let j = 0; j < shooterFireArray.length; j++){
+    //   $('.cols').each(function() {
+    //     // console.log($(this).offset());
+    //     // console.log(shooterFireArray[i]);
+    //     // console.log($boxes[i]);
+    //     // for(let j = 0; j < $boxes.length; j++){
+    //     // console.log($(this));
+    //
+    //     // Loop through $('.shooter-fire')
+    //     // then loop through $(.box)
+    //     if((shooterFireArray[j].offset().left < $(this).offset().left) + ($(this).width()) &&
+    //     (shooterFireArray[j].offset().left + shooterFireArray[j].width()) > ($(this).offset().left) &&
+    //     (shooterFireArray[j].offset().top < $(this).offset().top) + ($(this).height()) &&
+    //     (shooterFireArray[j].height() + shooterFireArray[j].offset().top) > ($(this).offset().top)) {
+    //       console.log('hit');
+    //     }
+    //   });
     // }
-  }
+    // }
+  // })
   setInterval(collisionDetectionBullet, 1000);
-
-
-// function to check collision between boxes and main character
-  function collisionDetectionGameCharacter(){
-
-    // if(!shooterFireArray.length) return false;
-    // console.log(shooterFireArray);
-
-    $boxes.each(function() {
-
-      // console.log($(this).offset());
-      // console.log(shooterFireArray[i]);
-      // console.log($boxes[i]);
-      // for(let j = 0; j < $boxes.length; j++){
-      // console.log($(this));
-
-      // Loop through $('.shooter-fire')
-      // then loop through $(.box)
-      if(($gameCharacter.offset().left < $(this).offset().left) + ($(this).width()) &&
-      ($gameCharacter.offset().left + $gameCharacter.width()) > ($(this).offset().left) &&
-      ($gameCharacter.offset().top < $(this).offset().top) + ($(this).height()) &&
-      ($gameCharacter.height() + $gameCharacter.offset().top) > ($(this).offset().top)) {
-        console.log('game over');
-      }
-    });
-  }
-  setInterval(collisionDetectionGameCharacter, 1000);
+//
+//
+// // function to check collision between boxes and main character
+//   function collisionDetectionGameCharacter(){
+//
+//     // if(!shooterFireArray.length) return false;
+//     // console.log(shooterFireArray);
+//
+//     $boxes.each(function() {
+//
+//       // console.log($(this).offset());
+//       // console.log(shooterFireArray[i]);
+//       // console.log($boxes[i]);
+//       // for(let j = 0; j < $boxes.length; j++){
+//       // console.log($(this));
+//
+//       // Loop through $('.shooter-fire')
+//       // then loop through $(.box)
+//       if(($gameCharacter.offset().left < $(this).offset().left) + ($(this).width()) &&
+//       ($gameCharacter.offset().left + $gameCharacter.width()) > ($(this).offset().left) &&
+//       ($gameCharacter.offset().top < $(this).offset().top) + ($(this).height()) &&
+//       ($gameCharacter.height() + $gameCharacter.offset().top) > ($(this).offset().top)) {
+//         console.log('game over');
+//       }
+//     });
+//   }
+//   setInterval(collisionDetectionGameCharacter, 1000);
 
   // end document
 });
