@@ -7,6 +7,7 @@ $(()=>{
   let direction = true;
   const $divWidth = $('.main-box').width();
   const $boxWidth = $('.box-group').width();
+  const audio = $('audio');
   // let marginBotton;
   const $characterPosition = [];
   // $bulletPosition declared but not used
@@ -43,10 +44,12 @@ $(()=>{
       $bullet.addClass('shooter-fire');
       $('.main-box').append($bullet);
       shooterFireArray.push($bullet);
-      console.log(shooterFireArray);
+      // console.log(shooterFireArray);
       $characterPosition.push($gameCharacter.offset().left);
       $bullet.css('left', ($characterPosition[$characterPosition.length-1] + $gameCharacter.width()/2) + 'px');
-      console.log($characterPosition, $characterPosition[$characterPosition.length - 1]);
+      audio.src = 'sounds/shoot.wav';
+      audio.play();
+      // console.log($characterPosition, $characterPosition[$characterPosition.length - 1]);
     }
     // initialBulletPosition();
   });
@@ -88,7 +91,7 @@ $(()=>{
 
   // make collision detection between boxes and bullet
 
-  function collisionDetection(){
+  function collisionDetectionBullet(){
 
     if(!shooterFireArray.length) return false;
     // console.log(shooterFireArray);
@@ -113,6 +116,34 @@ $(()=>{
     }
     // }
   }
-  setInterval(collisionDetection, 1000);
+  setInterval(collisionDetectionBullet, 1000);
 
+
+// function to check collision between boxes and main character
+  function collisionDetectionGameCharacter(){
+
+    // if(!shooterFireArray.length) return false;
+    // console.log(shooterFireArray);
+
+    $boxes.each(function() {
+
+      // console.log($(this).offset());
+      // console.log(shooterFireArray[i]);
+      // console.log($boxes[i]);
+      // for(let j = 0; j < $boxes.length; j++){
+      // console.log($(this));
+
+      // Loop through $('.shooter-fire')
+      // then loop through $(.box)
+      if(($gameCharacter.offset().left < $(this).offset().left) + ($(this).width()) &&
+      ($gameCharacter.offset().left + $gameCharacter.width()) > ($(this).offset().left) &&
+      ($gameCharacter.offset().top < $(this).offset().top) + ($(this).height()) &&
+      ($gameCharacter.height() + $gameCharacter.offset().top) > ($(this).offset().top)) {
+        console.log('game over');
+      }
+    });
+  }
+  setInterval(collisionDetectionGameCharacter, 1000);
+
+  // end document
 });
