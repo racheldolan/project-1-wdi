@@ -31,7 +31,7 @@ p {
   background-repeat: no-repeat;
   position: absolute;
   background-position: bottom;
-  bottom: 0; }
+  bottom: 0px; }
 
 .shooter-fire {
   width: 2px;
@@ -43,6 +43,7 @@ p {
   bottom: 61px; }
 
 .box-group {
+  width: 80px;
   margin: 0 auto;
   display: flex;
   position: absolute;
@@ -75,5 +76,14 @@ p {
   background-color: white;
   margin: 0 auto;
   display: block; }
+
+.game-over {
+  height: 200px;
+  width: 200px;
+  background-color: red;
+  color: white;
+  font-family: Cosmic Alien;
+  font-size: 50px;
+  text-align: center; }
 
 /*# sourceMappingURL=style.css.map */

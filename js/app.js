@@ -3,11 +3,12 @@ $(()=>{
   const $gameCharacter = $('.shooter');
   // const $boxes = $('.box');
   const shooterFireArray = [];
+
   const gridArray = [];
+
   const $mainBox = $('.main-box');
   const $box = $('.box-group');
   // const $box = $('.box');
-  let direction = true;
   const $divWidth = $('.main-box').width();
   const $boxWidth = $('.box-group').width();
   const audio = document.querySelector('audio');
@@ -15,6 +16,7 @@ $(()=>{
   const $characterPosition = [];
   const $button = $('button');
   const $game = $('.game');
+  let direction = true;
 
 // function to make the instructions disappear
   $game.on('click', function(){
@@ -34,7 +36,6 @@ $(()=>{
     const $newDiv = $('<div>');
     $newDiv.addClass('rows');
     $('.box-group').append($newDiv);
-    gridArray.push($newDiv);
     for (let j = 0; j < cols; j++) {
       const $newDiv2 = $('<div>');
       $newDiv2.addClass('cols');
@@ -74,7 +75,7 @@ $(()=>{
       $characterPosition.push($gameCharacter.offset().left);
       $bullet.css('left', ($characterPosition[$characterPosition.length-1] + $gameCharacter.width()/2) + 'px');
       audio.src = 'sounds/shoot.wav';
-      audio.play();
+      // audio.play();
       // console.log($characterPosition, $characterPosition[$characterPosition.length - 1]);
     }
     // initialBulletPosition();
@@ -88,13 +89,14 @@ $(()=>{
     $('.shooter-fire').css('bottom','+=5px');
   }
   // need to add clear interval here
-  setInterval(bulletMove, 100);
+setInterval(bulletMove, 10);
+
 
   // function to move boxes from left to right
   function animateAliens(){
     setInterval(function(){
       if(direction){
-        if($('.box-group').position().left + $boxWidth > $divWidth) direction = false;
+        if($('.box-group').position().left + $boxWidth >= $divWidth) direction = false;
         // if($('.box-group').position().left + $boxWidth > ($('.main-box').offset().left + $divWidth)) direction = false;
         $('.box-group').css('left', '+=10px');
         $('.box-group').css('bottom', '-=1px');
@@ -104,79 +106,56 @@ $(()=>{
 
         $('.box-group').css('left', '-=10px');
       }
-    }, 100);
+    }, 10);
   }
 
-$game.on('click', function(){
-  animateAliens();
-  moveCharacter();
-})
-  // animateAliens();
+  $game.on('click', function(){
+    animateAliens();
+    moveCharacter();
+  });
 
+  // function removeVisibility(alien){
+  //   alien.css('display', 'none');
+  // }
   // make collision detection between boxes and bullet
 
-  // function collisionDetectionBullet(){
-  //
-  //   if(!shooterFireArray.length) return false;
-  //   // console.log(shooterFireArray);
-  //   for(let i = 0; i < shooterFireArray.length; i++){
-  //     for(let j = 0; j < gridArray.length; j++) {
-  //     // $('.rows').each(function() {
-  //       // console.log($(this).offset());
-  //       // console.log(shooterFireArray[i]);
-  //       // console.log($boxes[i]);
-  //       // for(let j = 0; j < $boxes.length; j++){
-  //       // console.log($(this));
-  //
-  //       // Loop through $('.shooter-fire')
-  //       // then loop through $(.box)
-  //       if((shooterFireArray[i].offset().left < gridArray[j].offset().left) + (gridArray[j].width()) &&
-  //       (shooterFireArray[i].offset().left + shooterFireArray[i].width()) > (gridArray[j].offset().left) &&
-  //       (shooterFireArray[i].offset().top < gridArray[j].offset().top) + (gridArray[j].height()) &&
-  //       (shooterFireArray[i].height() + shooterFireArray[i].offset().top) > (gridArray[j].offset().top)) {
-  //         console.log('hit');
-  //         // gridArray[j].remove();
-  //       }
-  //     };
-  //   }
-  // }
+  function collisionDetectionBullet(){
 
-    // for(let j = 0; j < shooterFireArray.length; j++){
-    //   $('.cols').each(function() {
-    //     // console.log($(this).offset());
-    //     // console.log(shooterFireArray[i]);
-    //     // console.log($boxes[i]);
-    //     // for(let j = 0; j < $boxes.length; j++){
-    //     // console.log($(this));
-    //
-    //     // Loop through $('.shooter-fire')
-    //     // then loop through $(.box)
-    //     if((shooterFireArray[j].offset().left < $(this).offset().left) + ($(this).width()) &&
-    //     (shooterFireArray[j].offset().left + shooterFireArray[j].width()) > ($(this).offset().left) &&
-    //     (shooterFireArray[j].offset().top < $(this).offset().top) + ($(this).height()) &&
-    //     (shooterFireArray[j].height() + shooterFireArray[j].offset().top) > ($(this).offset().top)) {
-    //       console.log('hit');
-    //     }
-    //   });
-    // }
-    // }
-  // // })
-  // setInterval(collisionDetectionBullet, 1000);
-//
-//
-// // function to check collision between boxes and main character
+    if(!shooterFireArray.length) return false;
+    // console.log(shooterFireArray);
+    for(let i = 0; i < shooterFireArray.length; i++){
+      for(let j = 0; j < gridArray.length; j++) {
+
+        if((shooterFireArray[i].offset().left < (gridArray[j].offset().left + gridArray[j].width())) &&
+        (shooterFireArray[i].offset().left > gridArray[j].offset().left) &&
+        (shooterFireArray[i].offset().top > gridArray[j].offset().top) &&
+        (shooterFireArray[i].offset().top < (gridArray[j].offset().top + gridArray[j].height()))) {
+          shooterFireArray[i].remove();
+          gridArray[j].remove();
+
+        }
+      }
+    }
+  }
+  setInterval(collisionDetectionBullet, 10);
+
+  // // function to check collision between boxes and main character
   function collisionDetectionGameCharacter(){
 
-    if(($gameCharacter.offset().left < $box.offset().left) + ($box.width()) &&
-  ($gameCharacter.offset().left + $gameCharacter.width()) > ($box.offset().left) &&
-  ($gameCharacter.offset().top < $box.offset().top) + ($box.height()) &&
-  ($gameCharacter.height() + $gameCharacter.offset().top) > ($box.offset().top)) {
-      console.log('game over');
-    // gridArray[j].remove();
-    }
-  };
+    for(let i = 0; i < gridArray.length; i++) {
 
-  setInterval(collisionDetectionGameCharacter, 1000);
+      if(($gameCharacter.offset().left < (gridArray[i].offset().left + gridArray[i].width())) &&
+      ($gameCharacter.offset().left > gridArray[i].offset().left) &&
+      ($gameCharacter.offset().top > gridArray[i].offset().top) &&
+      ($gameCharacter.offset().top < (gridArray[i].offset().top + gridArray[i].height()))) {
+        console.log('game over');
+        $gameCharacter.remove();
+        gridArray.remove();
+      }
+    }
+  }
+  setInterval(collisionDetectionGameCharacter, 10);
 
   // end document
+  // console.log(shooterFireArray, gridArray);
 });
