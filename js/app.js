@@ -105,7 +105,7 @@ $(()=> {
 
   setInterval(bulletPath, 100);
 
-  // remove bullet from the dom when it leaves the main box - not working
+  // remove bullet from the dom when it leaves the main box - check if working
   function bulletRemove(){
     for(let i = 0; i < shooterFireArray.length; i++){
       if(shooterFireArray[i].offset().top < $('.main-box').offset().top){
@@ -115,16 +115,6 @@ $(()=> {
     }
   }
   setInterval(bulletRemove, 10);
-
-  //
-  //
-  //     shooterFireArray.filter(function(){
-  //       return {!(shooterFireArray[i].offset().top < $('.main-box').offset().top)})
-  //       // $('document').remove(shooterFireArray[i]);
-  //     }
-  //   }
-  // }
-
 
 
   // function to move boxes from left to right
@@ -140,7 +130,7 @@ $(()=> {
         if($('.box-group').position().left < ($('.main-box').offset().left + 8)) direction = true;
         $('.box-group').css('left', '-=10px');
       }
-    }, 100);
+    }, 90);
   }
 
   $game.on('click', function(){
@@ -148,17 +138,20 @@ $(()=> {
     moveCharacter();
   });
 
-// function to bring up game complete alert
-  // function gameComplete(){
-  //   if($gridArray.length === 0){
-  //     alert('congratulations');
-  //   }
-  // }
-  // gameComplete();
+  // function to bring up game complete alert
+  function gameComplete(){
+    if($gridArray.length === 0){
+      alert('congratulations');
+    }
+  }
+  gameComplete();
 
-  // function removeVisibility(alien){
-  //   alien.css('display', 'none');
-  // }
+  // test function to see if the grids are leaving the array when collision occurs
+// function length(){
+//   console.log($gridArray.length);
+// }
+// setInterval(length, 1000);
+
   // make collision detection between boxes and bullet
 
   function collisionDetectionBullet(){
