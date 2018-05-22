@@ -96,10 +96,22 @@ p {
 
 .game-over {
   height: 200px;
-  width: 200px;
+  width: 400px;
   background-color: red;
   color: white;
   font-family: Cosmic Alien;
   font-size: 50px;
   text-align: center;
+  margin: 0 auto;
+  display: none;
 }
+
+.play-again{
+  font-size: 20px;
+}
+// .intro {
+//   height: 200px;
+//   width: 60px;
+//   background-color: white;
+//   top: 10px;
+// }

@@ -79,11 +79,16 @@ p {
 
 .game-over {
   height: 200px;
-  width: 200px;
+  width: 400px;
   background-color: red;
   color: white;
   font-family: Cosmic Alien;
   font-size: 50px;
-  text-align: center; }
+  text-align: center;
+  margin: 0 auto;
+  display: none; }
+
+.play-again {
+  font-size: 20px; }
 
 /*# sourceMappingURL=style.css.map */
