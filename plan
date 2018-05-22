@@ -19,6 +19,17 @@ if ($elOffset.left < $el_2_Offset.left + $el_2.width() &&
 
     });
 
+
+    function animateAliensSpeed(){
+      if($gridArray.length < 10){
+        setInterval(animateAliens, 10);
+      } else {
+        setInterval(animateAliens, 100);
+      }
+    }
+    animateAliensSpeed();
+
+    
 create a setInterval function and call the loop function every second
 
 // make the main object shoot
