@@ -29,7 +29,7 @@ $(()=> {
   }
   game();
 
-  // displays game over banner
+  // displays game over banner. plays game over noise.
   function gameOver(){
     if($('.game-over').css('display', 'none')){
       $('.game-over').css('display', 'block');
@@ -87,7 +87,7 @@ $(()=> {
 
   // on space keydown, fires bullets from character position and plays sound fx
   $(document).on('keydown', function(e){
-    // if(shooterFireArray < 1){
+    if(shooterFireArray < 1){
       if(e.which === 32){
         //creates bullet div
         const $bullet = $('<div />');
@@ -98,10 +98,10 @@ $(()=> {
         $characterPosition.push($gameCharacter.offset().left);
         $bullet.css('left', ($characterPosition[$characterPosition.length-1] + $gameCharacter.width()/2) + 'px');
         audio.src = 'sounds/shoot.wav';
-        // audio.play();
+        audio.play();
       }
       // console.log($characterPosition, $characterPosition[$characterPosition.length - 1]);
-    // }
+    }
   });
 
 
