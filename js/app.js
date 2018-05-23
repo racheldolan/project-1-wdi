@@ -19,13 +19,16 @@ $(()=> {
   let bulletCreateInterval;
 
   // function to make the instructions disappear
-  $game.on('click', function(){
-    if($('.game').css('display', 'block')){
-      $('.game').css('display', 'none');
-    } else {
-      $('.game').css('display', 'block');
-    }
-  });
+  function game(){
+    $game.on('click', function(){
+      if($('.game').css('display', 'block')){
+        $('.game').css('display', 'none');
+      } else {
+        $('.game').css('display', 'block');
+      }
+    });
+  }
+  game();
 
   // displays game over banner
   function gameOver(){
@@ -38,12 +41,13 @@ $(()=> {
       $('.game-over').css('display', 'none');
     }
   }
-
-  // $playAgain.on('click', function(){
-  //   gameOver();
-  //   animateAliens();
-  //   moveCharacter();
-  // })
+  // function to refresh the screen and play again
+  $playAgain.on('click', function(){
+    if($('.game-over').css('display', 'block')){
+      $('.game-over').css('display', 'none');
+    }
+      document.querySelector('window').location.reload();
+  });
 
   // Generate grid of divs
   function generateGrid(){
@@ -101,9 +105,17 @@ $(()=> {
   // function to fire the bullet and keep it moving
   function bulletPath(){
     $('.shooter-fire').css('bottom','+=5px');
+    // console.log($('.shooter-fire'));
   }
 
-  setInterval(bulletPath, 100);
+
+  const bulletTracker = setInterval(bulletPath, 100);
+
+  // function intervalTracker() {
+  //   console.log(bulletTracker);
+  // }
+
+  // setInterval(intervalTracker, 1000);
 
   // remove bullet from the dom when it leaves the main box - check if working
   function bulletRemove(){
@@ -130,7 +142,7 @@ $(()=> {
         if($('.box-group').position().left < ($('.main-box').offset().left + 8)) direction = true;
         $('.box-group').css('left', '-=10px');
       }
-    }, 90);
+    }, 10);
   }
 
   $game.on('click', function(){
@@ -139,18 +151,18 @@ $(()=> {
   });
 
   // function to bring up game complete alert
-  function gameComplete(){
-    if($gridArray.length === 0){
-      alert('congratulations');
-    }
-  }
-  gameComplete();
+  // function gameComplete(){
+  //   if($gridArray.length === 0){
+  //     alert('congratulations');
+  //   }
+  // }
+  // gameComplete();
 
   // test function to see if the grids are leaving the array when collision occurs
-// function length(){
-//   console.log($gridArray.length);
-// }
-// setInterval(length, 1000);
+  // function length(){
+  //   console.log($gridArray.length);
+  // }
+  // setInterval(length, 1000);
 
   // make collision detection between boxes and bullet
 
@@ -173,13 +185,13 @@ $(()=> {
   }
   setInterval(collisionDetectionBullet, 10);
 
-// make aliens go faster the less that are still in the array
-  // function animateAliensSpeed(){
-  //   if($gridArray[10].offset().top  200){
-  //     setInterval(animateAliens, 10);
-  //   }
-  // }
-  // animateAliensSpeed();
+  // make aliens go faster the less that are still in the array
+  function animateAliensSpeed(){
+    if($gridArray[10].offset().top >  200){
+      alert('congratulations')
+    }
+  }
+  animateAliensSpeed();
 
   // // function to check collision between boxes and main character
   function collisionDetectionGameCharacter(){
@@ -192,7 +204,7 @@ $(()=> {
         $gameCharacter.remove();
         gameOver();
 
-        // need to write code to remove grid
+        // need to write code to remove grid from the screen
       }
     }
   }
