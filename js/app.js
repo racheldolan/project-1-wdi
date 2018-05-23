@@ -37,13 +37,6 @@ $(()=> {
   }
   game();
 
-  // displays game over banner. plays game over noise.
-  function gameOver(){
-    $('.game-over').css('display', 'block');
-    audio.src = './sounds/explosion 2.wav';
-    audio.play();
-    clearInterval(animateAliensInterval);
-  }
   // function to refresh the screen and play again
   $playAgain.on('click', function(){
     if($('.game-over').css('display', 'block')){
@@ -85,9 +78,6 @@ $(()=> {
       }
     });
   }
-  // tests if there's already a bullet on the page
-
-  // if(shooterFireArray.length > 1) canShoot = false;
 
   // on space keydown, fires bullets from character position and plays sound fx
   $(document).on('keydown', function(e){
@@ -104,7 +94,6 @@ $(()=> {
         audio.src = 'sounds/shoot.wav';
         audio.play();
       }
-      // console.log($characterPosition, $characterPosition[$characterPosition.length - 1]);
     }
   });
 
@@ -120,8 +109,6 @@ $(()=> {
   function bulletRemove(){
     for(let i = 0; i < shooterFireArray.length; i++){
       if(shooterFireArray[i].offset().top < $('.main-box').offset().top){
-        // clearInterval(bulletTracker);
-        // shooterFireArray[i].remove();
         shooterFireArray.pop();
         // console.log(shooterFireArray);
       }
@@ -154,19 +141,6 @@ $(()=> {
     startGame();
     moveCharacter();
   });
-
-  // function to bring up game complete alert
-  function gameComplete(){
-    if(killCount === 45){
-      if($('.winner').css('display', 'none')){
-        $('.winner').css('display', 'block');
-      }
-      audio.src = './sounds/fanfare.wav';
-      audio.play();
-      clearInterval(animateAliensInterval);
-    }
-  }
-  gameComplete();
 
   // collision detection between boxes and bullet
   function collisionDetectionBullet(){
@@ -220,14 +194,34 @@ $(()=> {
     }
   }
   setInterval(collisionDetectionGameCharacter, 10);
+  // if there's been no collision, display 0
+  $playerScore.text(score);
 
-// function to call game over if the grid goes outside of the main box - not working
+  // function to call game over if the grid goes outside of the main box - not working
   if($('.box-group').offset().top - $('.box-group').height() <= 126){
     clearInterval(animateAliensInterval);
   }
 
-  // if there's been no collision, display 0
-  $playerScore.text(score);
+  // function to bring up game complete alert
+  function gameWon(){
+    if(killCount === 45){
+      if($('.winner').css('display', 'none')){
+        $('.winner').css('display', 'block');
+      }
+      audio.src = './sounds/fanfare.wav';
+      audio.play();
+      clearInterval(animateAliensInterval);
+    }
+  }
+  gameWon();
+
+  // displays game over banner. plays game over noise.
+  function gameOver(){
+    $('.game-over').css('display', 'block');
+    audio.src = './sounds/explosion 2.wav';
+    audio.play();
+    clearInterval(animateAliensInterval);
+  }
 
   // end document
 });
