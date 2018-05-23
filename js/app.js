@@ -22,6 +22,7 @@ $(()=> {
   let score = 0;
 
 
+
   // function to make the instructions disappear
   function game(){
     $game.on('click', function(){
@@ -133,7 +134,7 @@ $(()=> {
   }
 
   // function to move boxes from left to right
-  function animateAliens(time){
+  function animateAliens(){
     animateAliensInterval = setInterval(function(){
       if(direction){
         if($('.box-group').position().left + $boxWidth >= $divWidth) direction = false;
@@ -145,7 +146,7 @@ $(()=> {
         if($('.box-group').position().left < ($('.main-box').offset().left + 8)) direction = true;
         $('.box-group').css('left', '-=10px');
       }
-    }, time);
+    }, 10);
   }
 
   // starts the game on click
@@ -202,9 +203,6 @@ $(()=> {
   }
   setInterval(collisionDetectionBullet, 10);
 
-  // make aliens go faster the less that are still in the array
-
-
 
   // // function to check collision between boxes and main character
   function collisionDetectionGameCharacter(){
@@ -212,6 +210,8 @@ $(()=> {
       if(($gameCharacter.offset().left < ($gridArray[i].offset().left + $gridArray[i].width())) &&
       ($gameCharacter.offset().left > $gridArray[i].offset().left) &&
       ($gameCharacter.offset().top > $gridArray[i].offset().top) &&
+      // new line added below
+      (($gameCharacter.offset().left + $gameCharacter.width()) > $gridArray[i].offset().left) &&
       ($gameCharacter.offset().top < ($gridArray[i].offset().top + $gridArray[i].height()))) {
         console.log('game over');
         $gameCharacter.remove();
@@ -220,6 +220,14 @@ $(()=> {
     }
   }
   setInterval(collisionDetectionGameCharacter, 10);
+
+// function to call game over if the grid goes outside of the main box - not working
+  if($('.box-group').offset().top - $('.box-group').height() <= 126){
+    clearInterval(animateAliensInterval);
+  }
+
+  // if there's been no collision, display 0
+  $playerScore.text(score);
 
   // end document
 });
