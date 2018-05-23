@@ -14,6 +14,7 @@ $(()=> {
   let direction = true;
   let animateAliensInterval;
   let killCount = 0;
+  let alienSpeed = 100;
 
 
   // function to make the instructions disappear
@@ -113,12 +114,6 @@ $(()=> {
 
   setInterval(bulletPath, 10);
 
-  // function intervalTracker() {
-  //   console.log(bulletTracker);
-  // }
-
-  // setInterval(intervalTracker, 1000);
-
   // remove bullet from the dom when it leaves the main box - check if working
   function bulletRemove(){
     for(let i = 0; i < shooterFireArray.length; i++){
@@ -157,7 +152,7 @@ $(()=> {
 
   // function to bring up game complete alert
   function gameComplete(){
-    if(killCount === 10){
+    if(killCount === 45){
       if($('.winner').css('display', 'none')){
         $('.winner').css('display', 'block');
       }
@@ -168,16 +163,7 @@ $(()=> {
   }
   gameComplete();
 
-  // test function to see if the grids are leaving the array when collision occurs
-  // function length(){
-  //   console.log($gridArray.length);
-  // }
-  // setInterval(length, 1000);
-
-  // test if grids are leaving the grid array
-
-
-  // make collision detection between boxes and bullet
+  // collision detection between boxes and bullet
   function collisionDetectionBullet(){
 
     if(!shooterFireArray.length) return false;
@@ -191,9 +177,7 @@ $(()=> {
         (shooterFireArray[i].offset().top > $gridArray[j].offset().top) &&
         (shooterFireArray[i].offset().top < ($gridArray[j].offset().top + $gridArray[j].height()))){
           shooterFireArray[i].remove();
-          // const index = $gridArray.indexOf([j]);
           $gridArray[j].hide();
-          // $gridArray.splice(index, 1);
           killCount ++;
           console.log(killCount);
           gameComplete();
@@ -205,8 +189,8 @@ $(()=> {
 
   // make aliens go faster the less that are still in the array
   // function animateAliensSpeed(){
-  //   if($gridArray.length <= 15){
-  //     setInterval(animateAliens,10);
+  //   if(killCount >= 10){
+  //     alienSpeed = animateAliensInterval(animateAliens, 10);
   //   }
   // }
   // animateAliensSpeed();
@@ -222,8 +206,6 @@ $(()=> {
         console.log('game over');
         $gameCharacter.remove();
         gameOver();
-
-        // need to write code to remove grid from the screen
       }
     }
   }
