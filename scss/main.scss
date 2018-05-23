@@ -30,6 +30,11 @@ p {
   // position: relative;
 }
 
+.score{
+  display: none;
+  color: white;
+}
+
 .shooter{
   background-image: url('/Users/racheldolan/development/project-1-wdi/images/shooter2.png');
   height: 60px;
@@ -51,9 +56,15 @@ p {
   bottom: 61px;
 }
 
+.enemy-fire{
+  width: 2px;
+  height: 10px;
+  background-color: green;
+  margin: 0 auto;
+  position: absolute;
+}
+
 .box-group{
-  // border: 1px solid red;
-  // height: 300px;
   width: 80px;
   margin: 0 auto;
   display: flex;

@@ -2,19 +2,24 @@ $(()=> {
   const rows = 9, cols = 5;
   const $gameCharacter = $('.shooter');
   const shooterFireArray = [];
-  const $playAgain = $('.play-again');
   const $gridArray = [];
+  const $playAgain = $('.play-again');
   const $gameOver = $('.game-over');
   const $mainBox = $('.main-box');
   const $divWidth = $('.main-box').width();
   const $boxWidth = $('.box-group').width();
   const audio = document.querySelector('audio');
   const $characterPosition = [];
+  const $enemyPosition = [];
   const $game = $('.game');
+  let $enemyFire = [];
   let direction = true;
   let animateAliensInterval;
   let killCount = 0;
-  let alienSpeed = 100;
+  let enemyHits = 0;
+  let speed = 100;
+  const $playerScore = $('.playerScore');
+  let score = 0;
 
 
   // function to make the instructions disappear
@@ -22,6 +27,7 @@ $(()=> {
     $game.on('click', function(){
       if($('.game').css('display', 'block')){
         $('.game').css('display', 'none');
+        $('.score').css('display', 'block');
       } else {
         $('.game').css('display', 'block');
       }
@@ -32,14 +38,10 @@ $(()=> {
 
   // displays game over banner. plays game over noise.
   function gameOver(){
-    if($('.game-over').css('display', 'none')){
-      $('.game-over').css('display', 'block');
-      audio.src = './sounds/explosion 2.wav';
-      audio.play();
-      clearInterval(animateAliensInterval);
-    } else {
-      $('.game-over').css('display', 'none');
-    }
+    $('.game-over').css('display', 'block');
+    audio.src = './sounds/explosion 2.wav';
+    audio.play();
+    clearInterval(animateAliensInterval);
   }
   // function to refresh the screen and play again
   $playAgain.on('click', function(){
@@ -105,7 +107,6 @@ $(()=> {
     }
   });
 
-
   // function to fire the bullet and keep it moving
   function bulletPath(){
     $('.shooter-fire').css('bottom','+=5px');
@@ -127,9 +128,12 @@ $(()=> {
   }
   setInterval(bulletRemove, 100);
 
+  function startGame() {
+    animateAliens(speed);
+  }
 
   // function to move boxes from left to right
-  function animateAliens(){
+  function animateAliens(time){
     animateAliensInterval = setInterval(function(){
       if(direction){
         if($('.box-group').position().left + $boxWidth >= $divWidth) direction = false;
@@ -141,12 +145,12 @@ $(()=> {
         if($('.box-group').position().left < ($('.main-box').offset().left + 8)) direction = true;
         $('.box-group').css('left', '-=10px');
       }
-    }, 100);
+    }, time);
   }
 
   // starts the game on click
   $game.on('click', function(){
-    animateAliens();
+    startGame();
     moveCharacter();
   });
 
@@ -178,8 +182,19 @@ $(()=> {
         (shooterFireArray[i].offset().top < ($gridArray[j].offset().top + $gridArray[j].height()))){
           shooterFireArray[i].remove();
           $gridArray[j].hide();
-          killCount ++;
-          console.log(killCount);
+          killCount++;
+          score++;
+          $playerScore.text(score);
+          // if(killCount === 10) {
+          //   console.log('here', killCount);
+          //   speed-=10; //90
+          //   animateAliens(speed);
+          // } else if(killCount === 15){
+          //   console.log('here', killCount);
+          //   speed-=10; //80
+          //   animateAliens(speed);
+          // }
+          console.log(speed);
           gameComplete();
         }
       }
@@ -188,12 +203,7 @@ $(()=> {
   setInterval(collisionDetectionBullet, 10);
 
   // make aliens go faster the less that are still in the array
-  // function animateAliensSpeed(){
-  //   if(killCount >= 10){
-  //     alienSpeed = animateAliensInterval(animateAliens, 10);
-  //   }
-  // }
-  // animateAliensSpeed();
+
 
 
   // // function to check collision between boxes and main character
