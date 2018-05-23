@@ -56,7 +56,8 @@ p {
   margin: auto;
   flex-wrap: wrap;
   text-align: center;
-  margin: 10px; }
+  margin: 10px;
+  z-index: 1; }
 
 .instructions {
   height: 600px;
@@ -94,6 +95,18 @@ a {
   text-align: center;
   margin: 0 auto;
   display: none; }
+
+.winner {
+  height: 200px;
+  width: 400px;
+  background-color: green;
+  color: white;
+  font-family: Cosmic Alien;
+  font-size: 50px;
+  text-align: center;
+  margin: 0 auto;
+  display: none;
+  z-index: 3; }
 
 .game-over-text {
   animation-name: flash;
