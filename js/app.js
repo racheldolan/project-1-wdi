@@ -5,7 +5,6 @@ $(()=> {
   const $gridArray = [];
   const $playAgain = $('.play-again');
   const $gameOver = $('.game-over');
-  const $mainBox = $('.main-box');
   const $divWidth = $('.main-box').width();
   const $boxWidth = $('.box-group').width();
   const audio = document.querySelector('audio');
@@ -19,8 +18,7 @@ $(()=> {
   let score = 0;
   let shoot = true;
 
-  // function to make the instructions disappear and the game begin
-
+  // instructions disappear and the game begins
   $game.on('click', function(){
     animateAliensInterval = setInterval(() => {
       animateAliens();
@@ -36,7 +34,7 @@ $(()=> {
   });
 
 
-  // refreshes the screen and play again
+  // refreshes the screen to play again
   $playAgain.on('click', function(){
     if($('.game-over').css('display', 'block')){
       $('.game-over').css('display', 'none');
@@ -44,7 +42,7 @@ $(()=> {
     $('window').location.reload();
   });
 
-  // Generate grid of divs
+  // Generates grid of aliens
   function generateGrid(){
     for (let j = 0; j < rows; j++) {
       const $newDiv = $('<div>');
@@ -56,13 +54,12 @@ $(()=> {
         $newDiv2.addClass('cols');
         $newDiv.append($newDiv2);
         $gridArray.push($newDiv2);
-        // console.log($gridArray);
       }
     }
   }
   generateGrid();
 
-  // moves character left and right
+  // moves game character left and right
   function moveCharacter(){
     $(document).on('keydown', function(e){
       switch(e.which){
@@ -97,6 +94,7 @@ $(()=> {
       }
     });
   }
+
   // function to fire the bullet and keep it moving
   function bulletPath(){
     $('.shooter-fire').css('bottom','+=5px');
@@ -105,7 +103,7 @@ $(()=> {
 
   setInterval(bulletPath, 10);
 
-  // remove bullet from the dom when it leaves the main box - check if working
+  // remove bullet from the dom and shooterFireArray when it leaves the main box
   function bulletRemove(){
     for(let i = 0; i < shooterFireArray.length; i++){
       if(shooterFireArray[i].offset().top < $('.main-box').offset().top){
@@ -116,9 +114,8 @@ $(()=> {
   }
   setInterval(bulletRemove, 100);
 
-  // function to move boxes from left to right
+  // function to move aliens from left to right
   function animateAliens() {
-    console.log(speed);
     if (direction) {
       if ($('.box-group').position().left + $boxWidth >= $divWidth - 20) direction = false;
       // if($('.box-group').position().left + $boxWidth > ($('.main-box').offset().left + $divWidth)) direction = false;
@@ -130,14 +127,11 @@ $(()=> {
       $('.box-group').css('left', '-=10px');
     }
   }
-  //
 
-
-  // collision detection between boxes and bullet
+  // collision detection between aliens and bullets
   function collisionDetectionBullet(){
 
     if(!shooterFireArray.length) return false;
-    // console.log(shooterFireArray);
 
     for(let i = 0; i < shooterFireArray.length; i++){
       for(let j = 0; j < $gridArray.length; j++) {
@@ -150,15 +144,15 @@ $(()=> {
           $gridArray[j].hide();
           killCount++;
           score++;
-          speed-=10; //90
+          speed-=1; //90
           $playerScore.text(score);
-          if(killCount === 1) {
+          if(killCount === 25) {
             // console.log('here', killCount);
             clearInterval(animateAliensInterval);
             animateAliensInterval = setInterval(() => {
               animateAliens();
             }, speed);
-          } else if(killCount === 5){
+          } else if(killCount === 35){
             // console.log('here', killCount);
             clearInterval(animateAliensInterval);
             animateAliensInterval = setInterval(() => {
@@ -167,7 +161,6 @@ $(()=> {
           }
           // console.log(speed);
           gameWon();
-          // clearInterval(animateAliensInterval);
         }
       }
     }
@@ -183,7 +176,6 @@ $(()=> {
       ($gameCharacter.offset().top > $gridArray[i].offset().top) &&
       (($gameCharacter.offset().left + $gameCharacter.width()) > $gridArray[i].offset().left) &&
       ($gameCharacter.offset().top < ($gridArray[i].offset().top + $gridArray[i].height()))) {
-        console.log('game over');
         $gameCharacter.remove();
         gameOver();
       }
@@ -193,7 +185,7 @@ $(()=> {
   // if there's been no collision, display 0
   $playerScore.text(score);
 
-  // function to bring up game complete alert
+  //brings up game complete banner and plays sound fx
   function gameWon(){
     if(killCount === 45){
       if($('.winner').css('display', 'none')){
@@ -202,16 +194,13 @@ $(()=> {
       audio.src = './sounds/fanfare.wav';
       audio.play();
       clearInterval(animateAliensInterval);
-      console.log(animateAliensInterval);
       clearInterval(collisionDetectionBullet);
       // (!shoot);
     }
   }
-  // gameWon();
 
-  // displays game over banner. plays game over noise.
+  // displays game over banner. plays game over sound fx
   function gameOver(){
-    console.log('in gameOver');
     $('.game-over').css('display', 'block');
     audio.src = './sounds/explosion 2.wav';
     audio.play();

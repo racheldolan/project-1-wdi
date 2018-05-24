@@ -1,5 +1,7 @@
 body {
-  background-image: url("/Users/racheldolan/development/project-1-wdi/images/night-sky.jpg"); }
+  background-image: url("/Users/racheldolan/development/project-1-wdi/images/starrysky.gif");
+  background-repeat: no-repeat;
+  background-size: cover; }
 
 h1 {
   color: white;
@@ -73,7 +75,7 @@ p {
   color: white;
   line-height: 30px; }
   .instructions .space-invader {
-    height: 200px;
+    height: 170px;
     width: 200px; }
 
 .game {
