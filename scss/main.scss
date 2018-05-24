@@ -28,11 +28,12 @@ p {
   margin: 0 auto;
   background-color: black;
   // position: relative;
-  .score{
+  .score {
     display: none;
     color: white;
   }
 }
+
 
 .shooter{
   background-image: url('/Users/racheldolan/development/project-1-wdi/images/shooter2.png');
@@ -89,6 +90,7 @@ p {
   .space-invader {
     height: 200px;
     width: 200px;
+
   }
 }
 

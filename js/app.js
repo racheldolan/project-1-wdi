@@ -11,30 +11,30 @@ $(()=> {
   const audio = document.querySelector('audio');
   const $characterPosition = [];
   const $game = $('.game');
+  const $playerScore = $('.player-score');
   let direction = true;
   let animateAliensInterval;
   let killCount = 0;
-  // let speed = 100;
-  const $playerScore = $('.playerScore');
+  let speed = 100;
   let score = 0;
   let shoot = true;
 
+  // function to make the instructions disappear and the game begin
 
-  // function to make the instructions disappear
-  function game(){
-    $game.on('click', function(){
+  $game.on('click', function(){
+    animateAliensInterval = setInterval(() => {
       animateAliens();
-      moveCharacter();
-      if($('.game').css('display', 'block')){
-        $('.game').css('display', 'none');
-        $('.score').css('display', 'block');
-      } else {
-        $('.game').css('display', 'block');
-      }
-      $('.instructions').css('display', 'none');
-    });
-  }
-  game();
+    }, speed);
+    moveCharacter();
+    if($('.game').css('display', 'block')){
+      $('.game').css('display', 'none');
+      $('.score').css('display', 'block');
+    } else {
+      $('.game').css('display', 'block');
+    }
+    $('.instructions').css('display', 'none');
+  });
+
 
   // refreshes the screen and play again
   $playAgain.on('click', function(){
@@ -92,7 +92,7 @@ $(()=> {
           $characterPosition.push($gameCharacter.offset().left);
           $bullet.css('left', ($characterPosition[$characterPosition.length-1] + $gameCharacter.width()/2) + 'px');
           audio.src = 'sounds/shoot.wav';
-          audio.play();
+          // audio.play();
         }
       }
     });
@@ -117,24 +117,21 @@ $(()=> {
   setInterval(bulletRemove, 100);
 
   // function to move boxes from left to right
-  function animateAliens(){
-    animateAliensInterval = setInterval(function(){
-      if(direction){
-        if($('.box-group').position().left + $boxWidth >= $divWidth - 20) direction = false;
-        // if($('.box-group').position().left + $boxWidth > ($('.main-box').offset().left + $divWidth)) direction = false;
-        $('.box-group').css('left', '+=10px');
-        $('.box-group').css('bottom', '-=1px');
-      } else {
-        // if($('.box-group').position().left < 0) direction = true;
-        if($('.box-group').position().left < ($('.main-box').offset().left + 8)) direction = true;
-        $('.box-group').css('left', '-=10px');
-      }
-    }, 100);
+  function animateAliens() {
+    console.log(speed);
+    if (direction) {
+      if ($('.box-group').position().left + $boxWidth >= $divWidth) direction = false;
+      // if($('.box-group').position().left + $boxWidth > ($('.main-box').offset().left + $divWidth)) direction = false;
+      $('.box-group').css('left', '+=10px');
+      $('.box-group').css('bottom', '-=1px');
+    } else {
+      // if($('.box-group').position().left < 0) direction = true;
+      if ($('.box-group').position().left < ($('.main-box').offset().left + 8)) direction = true;
+      $('.box-group').css('left', '-=10px');
+    }
   }
   //
-  // animateAliensInterval = setInterval(() => {
-  //   animateAliens();
-  // }, speed);
+
 
   // collision detection between boxes and bullet
   function collisionDetectionBullet(){
@@ -153,18 +150,24 @@ $(()=> {
           $gridArray[j].hide();
           killCount++;
           score++;
+          speed-=10; //90
           $playerScore.text(score);
-          // if(killCount === 10) {
-          //   console.log('here', killCount);
-          //   speed-=10; //90
-          //   animateAliens(speed);
-          // } else if(killCount === 15){
-          //   console.log('here', killCount);
-          //   speed-=10; //80
-          //   animateAliens(speed);
-          // }
+          if(killCount === 1) {
+            console.log('here', killCount);
+            clearInterval(animateAliensInterval);
+            animateAliensInterval = setInterval(() => {
+              animateAliens();
+            }, speed);
+          } else if(killCount === 5){
+            console.log('here', killCount);
+            clearInterval(animateAliensInterval);
+            animateAliensInterval = setInterval(() => {
+              animateAliens();
+            }, speed);
+          }
           // console.log(speed);
           gameWon();
+          // clearInterval(animateAliensInterval);
         }
       }
     }
@@ -172,7 +175,7 @@ $(()=> {
   setInterval(collisionDetectionBullet, 10);
 
 
-  // // function to check collision between boxes and main character
+  // function to check collision between boxes and main character
   function collisionDetectionGameCharacter(){
     for(let i = 0; i < $gridArray.length; i++) {
       if(($gameCharacter.offset().left < ($gridArray[i].offset().left + $gridArray[i].width())) &&
@@ -199,18 +202,21 @@ $(()=> {
       audio.src = './sounds/fanfare.wav';
       audio.play();
       clearInterval(animateAliensInterval);
-      (!shoot);
+      console.log(animateAliensInterval);
+      clearInterval(collisionDetectionBullet);
+      // (!shoot);
     }
   }
-  gameWon();
+  // gameWon();
 
   // displays game over banner. plays game over noise.
   function gameOver(){
+    console.log('in gameOver');
     $('.game-over').css('display', 'block');
     audio.src = './sounds/explosion 2.wav';
     audio.play();
     clearInterval(animateAliensInterval);
-    (!shoot);
+    clearInterval(collisionDetectionBullet);
   }
 
   // end document
