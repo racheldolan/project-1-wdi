@@ -178,9 +178,7 @@ $(()=> {
       if(($gameCharacter.offset().left < ($gridArray[i].offset().left + $gridArray[i].width())) &&
       ($gameCharacter.offset().left > $gridArray[i].offset().left) &&
       ($gameCharacter.offset().top > $gridArray[i].offset().top) &&
-      // new lines added below. doesn't work.
-      // (($gameCharacter.offset().left + $gameCharacter.width()) < $gridArray[i].offset().left) &&
-      // ($gameCharacter.offset().left > $gridArray[i].offset().left) &&
+      (($gameCharacter.offset().left + $gameCharacter.width()) > $gridArray[i].offset().left) &&
       ($gameCharacter.offset().top < ($gridArray[i].offset().top + $gridArray[i].height()))) {
         console.log('game over');
         $gameCharacter.remove();
