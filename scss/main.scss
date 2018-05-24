@@ -1,9 +1,8 @@
-body{
+body {
   background-image: url('/Users/racheldolan/development/project-1-wdi/images/starrysky.gif');
   background-repeat: no-repeat;
   background-size: cover;
 }
-
 
 h1 {
   color: white;
@@ -38,7 +37,7 @@ p {
 }
 
 
-.shooter{
+.shooter {
   background-image: url('/Users/racheldolan/development/project-1-wdi/images/shooter2.png');
   height: 60px;
   width: 50px;
@@ -49,7 +48,7 @@ p {
   margin-left: 390px;
 }
 
-.shooter-fire{
+.shooter-fire {
   width: 2px;
   height: 10px;
   background-color: green;
@@ -59,7 +58,7 @@ p {
   bottom: 61px;
 }
 
-.box-group{
+.box-group {
   width: 80px;
   margin: 0 auto;
   display: flex;
@@ -78,7 +77,7 @@ p {
   }
 }
 
-.instructions{
+.instructions {
   height: 600px;
   width: 200px;
   border: 2px solid green;
@@ -93,7 +92,6 @@ p {
   .space-invader {
     height: 170px;
     width: 200px;
-
   }
 }
 
@@ -144,7 +142,7 @@ a {
   z-index: 3;
 }
 
-.play-again{
+.play-again {
   font-size: 20px;
   animation-name: pulse;
   animation-duration: 2s;

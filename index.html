@@ -8,59 +8,50 @@
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-  <header>
-
-
-
-  </header>
+  <header></header>
 
   <main>
-    <audio src="">
+    <!--source changed dynamically in app.js  -->
+    <audio src=""></audio>
 
-    </audio>
     <div class="instructions">
       <h2>How To Play</h2>
       <p>Use the right and left arrow keys to move your character, and spacebar to shoot at incoming enemy. Shoot all enemy before they get to you. You can only fire one bullet at a time.  </p>
-      <img class="space-invader" src="images/Space-Invaders-PNG-Transparent-Image.png" alt="space-invader">
+      <img class="space-invader" src="images/Space-Invaders.png" alt="space-invader-image">
     </div>
+
     <section class="main-box">
 
-      <h1>Space Invaders</h1>
+          <h1>Space Invaders</h1>
 
+          <!-- gun div -->
+          <div class="shooter"></div>
 
+          <div class="game">
+            <h2>Click to Play</h2>
+          </div>
 
-      <div class="shooter">
+          <div class="score">
+            <p>Your score: <span class="player-score"></span></p>
+          </div>
 
-      </div>
-      <div class="game">
+          <div class="game-over">
+            <h3 class="game-over-text">GAME OVER</h3>
+            <p>Your score: <span class="player-score"></span></p>
+            <a class="play-again" href="file:///Users/racheldolan/development/project-1-wdi/index.html">PLAY AGAIN</a>
+          </div>
 
-        <h2>Click to Play</h2>
-      </div>
-      <div class="score">
-        <p>Your score: <span class="player-score"></span></p>
-      </div>
-      <div class="game-over">
-        <h3 class="game-over-text">GAME OVER</h3>
-        <p>Your score: <span class="player-score"></span></p>
-        <a class="play-again" href="file:///Users/racheldolan/development/project-1-wdi/index.html">PLAY AGAIN</a>
-      </div>
-      <div class="winner">
-        <h3 class="winner-text">YOU WIN</h3>
-        <a class="play-again" href="file:///Users/racheldolan/development/project-1-wdi/index.html">PLAY AGAIN</a>
-      </div>
+          <div class="winner">
+            <h3 class="winner-text">YOU WIN</h3>
+            <p>Your score: <span class="player-score"></span></p>
+            <a class="play-again" href="file:///Users/racheldolan/development/project-1-wdi/index.html">PLAY AGAIN</a>
+          </div>
 
-      <div class="box-group">
+          <div class="box-group"></div>
 
+        </section>
+      </main>
 
-      </div>
-
-
-    </section>
-    <!-- <div class="intro">
-    <h3>PLAY</h3>
-  </div> -->
-</main>
-
-<footer></footer>
-</body>
+    <footer></footer>
+  </body>
 </html>

@@ -4,7 +4,6 @@ $(()=> {
   const shooterFireArray = [];
   const $gridArray = [];
   const $playAgain = $('.play-again');
-  const $gameOver = $('.game-over');
   const $divWidth = $('.main-box').width();
   const $boxWidth = $('.box-group').width();
   const audio = document.querySelector('audio');
@@ -16,7 +15,8 @@ $(()=> {
   let killCount = 0;
   let speed = 100;
   let score = 0;
-  let shoot = true;
+  let shootBoolean = true;
+
 
   // instructions disappear and the game begins
   $game.on('click', function(){
@@ -33,23 +33,14 @@ $(()=> {
     $('.instructions').css('display', 'none');
   });
 
-
-  // refreshes the screen to play again
-  $playAgain.on('click', function(){
-    if($('.game-over').css('display', 'block')){
-      $('.game-over').css('display', 'none');
-    }
-    $('window').location.reload();
-  });
-
   // Generates grid of aliens
   function generateGrid(){
-    for (let j = 0; j < rows; j++) {
+    for (let i = 0; i < rows; i++) {
       const $newDiv = $('<div>');
       $newDiv.addClass('rows');
       $('.box-group').append($newDiv);
 
-      for (let i = 0; i < cols; i++) {
+      for (let j = 0; j < cols; j++) {
         const $newDiv2 = $('<div>');
         $newDiv2.addClass('cols');
         $newDiv.append($newDiv2);
@@ -76,8 +67,9 @@ $(()=> {
   }
 
   // on space keydown, fires bullets from character position and plays sound fx
-  if(shoot){
-    $(document).on('keydown', function(e){
+
+  $(document).on('keydown', function(e){
+    if(shootBoolean){
       if(shooterFireArray < 1){
         if(e.which === 32){
           //creates bullet div
@@ -92,15 +84,15 @@ $(()=> {
           // audio.play();
         }
       }
-    });
-  }
+    }
+  });
 
-  // function to fire the bullet and keep it moving
+
+  //fires the bullet and keeps it moving
   function bulletPath(){
     $('.shooter-fire').css('bottom','+=5px');
     // console.log($('.shooter-fire'));
   }
-
   setInterval(bulletPath, 10);
 
   // remove bullet from the dom and shooterFireArray when it leaves the main box
@@ -118,11 +110,9 @@ $(()=> {
   function animateAliens() {
     if (direction) {
       if ($('.box-group').position().left + $boxWidth >= $divWidth - 20) direction = false;
-      // if($('.box-group').position().left + $boxWidth > ($('.main-box').offset().left + $divWidth)) direction = false;
       $('.box-group').css('left', '+=10px');
       $('.box-group').css('bottom', '-=1px');
     } else {
-      // if($('.box-group').position().left < 0) direction = true;
       if ($('.box-group').position().left < ($('.main-box').offset().left + 8)) direction = true;
       $('.box-group').css('left', '-=10px');
     }
@@ -144,16 +134,16 @@ $(()=> {
           $gridArray[j].hide();
           killCount++;
           score++;
-          speed-=1; //90
+          speed-=3;
           $playerScore.text(score);
-          if(killCount === 25) {
-            // console.log('here', killCount);
+          if(killCount === 15) {
+            // clears initial interval and creates new interval
             clearInterval(animateAliensInterval);
             animateAliensInterval = setInterval(() => {
               animateAliens();
             }, speed);
           } else if(killCount === 35){
-            // console.log('here', killCount);
+            // clears initial interval and creates new interval
             clearInterval(animateAliensInterval);
             animateAliensInterval = setInterval(() => {
               animateAliens();
@@ -166,7 +156,6 @@ $(()=> {
     }
   }
   setInterval(collisionDetectionBullet, 10);
-
 
   // function to check collision between boxes and main character
   function collisionDetectionGameCharacter(){
@@ -182,7 +171,8 @@ $(()=> {
     }
   }
   setInterval(collisionDetectionGameCharacter, 10);
-  // if there's been no collision, display 0
+
+  // if there's been no collision, score displays 0
   $playerScore.text(score);
 
   //brings up game complete banner and plays sound fx
@@ -195,12 +185,12 @@ $(()=> {
       audio.play();
       clearInterval(animateAliensInterval);
       clearInterval(collisionDetectionBullet);
-      // (!shoot);
     }
   }
 
   // displays game over banner. plays game over sound fx
   function gameOver(){
+    shootBoolean = false;
     $('.game-over').css('display', 'block');
     audio.src = './sounds/explosion 2.wav';
     audio.play();
@@ -208,5 +198,13 @@ $(()=> {
     clearInterval(collisionDetectionBullet);
   }
 
-  // end document
+  // refreshes the screen to play again
+  $playAgain.on('click', function(){
+    if($('.game-over').css('display', 'block')){
+      $('.game-over').css('display', 'none');
+    }
+    $('window').location.reload();
+  });
+
+  // end
 });
