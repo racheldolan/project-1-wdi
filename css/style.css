@@ -123,6 +123,10 @@ a {
   animation-duration: 2s;
   animation-iteration-count: infinite; }
 
+.space-invader {
+  height: 200px;
+  width: 200px; }
+
 @keyframes flash {
   from,
   50%,

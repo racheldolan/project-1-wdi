@@ -10,22 +10,21 @@ $(()=> {
   const $boxWidth = $('.box-group').width();
   const audio = document.querySelector('audio');
   const $characterPosition = [];
-  const $enemyPosition = [];
   const $game = $('.game');
-  let $enemyFire = [];
   let direction = true;
   let animateAliensInterval;
   let killCount = 0;
-  let enemyHits = 0;
-  let speed = 100;
+  // let speed = 100;
   const $playerScore = $('.playerScore');
   let score = 0;
-
+  let shoot = true;
 
 
   // function to make the instructions disappear
   function game(){
     $game.on('click', function(){
+      animateAliens();
+      moveCharacter();
       if($('.game').css('display', 'block')){
         $('.game').css('display', 'none');
         $('.score').css('display', 'block');
@@ -37,7 +36,7 @@ $(()=> {
   }
   game();
 
-  // function to refresh the screen and play again
+  // refreshes the screen and play again
   $playAgain.on('click', function(){
     if($('.game-over').css('display', 'block')){
       $('.game-over').css('display', 'none');
@@ -80,23 +79,24 @@ $(()=> {
   }
 
   // on space keydown, fires bullets from character position and plays sound fx
-  $(document).on('keydown', function(e){
-    if(shooterFireArray < 1){
-      if(e.which === 32){
-        //creates bullet div
-        const $bullet = $('<div />');
-        $bullet.addClass('shooter-fire');
-        $('.main-box').append($bullet);
-        shooterFireArray.push($bullet);
-        // //set initial position of bullet, wherever character is at time
-        $characterPosition.push($gameCharacter.offset().left);
-        $bullet.css('left', ($characterPosition[$characterPosition.length-1] + $gameCharacter.width()/2) + 'px');
-        audio.src = 'sounds/shoot.wav';
-        audio.play();
+  if(shoot){
+    $(document).on('keydown', function(e){
+      if(shooterFireArray < 1){
+        if(e.which === 32){
+          //creates bullet div
+          const $bullet = $('<div />');
+          $bullet.addClass('shooter-fire');
+          $('.main-box').append($bullet);
+          shooterFireArray.push($bullet);
+          // //set initial position of bullet, wherever character is at time
+          $characterPosition.push($gameCharacter.offset().left);
+          $bullet.css('left', ($characterPosition[$characterPosition.length-1] + $gameCharacter.width()/2) + 'px');
+          audio.src = 'sounds/shoot.wav';
+          audio.play();
+        }
       }
-    }
-  });
-
+    });
+  }
   // function to fire the bullet and keep it moving
   function bulletPath(){
     $('.shooter-fire').css('bottom','+=5px');
@@ -116,10 +116,6 @@ $(()=> {
   }
   setInterval(bulletRemove, 100);
 
-  function startGame() {
-    animateAliens(speed);
-  }
-
   // function to move boxes from left to right
   function animateAliens(){
     animateAliensInterval = setInterval(function(){
@@ -135,12 +131,10 @@ $(()=> {
       }
     }, 10);
   }
-
-  // starts the game on click
-  $game.on('click', function(){
-    startGame();
-    moveCharacter();
-  });
+  //
+  // animateAliensInterval = setInterval(() => {
+  //   animateAliens();
+  // }, speed);
 
   // collision detection between boxes and bullet
   function collisionDetectionBullet(){
@@ -169,8 +163,8 @@ $(()=> {
           //   speed-=10; //80
           //   animateAliens(speed);
           // }
-          console.log(speed);
-          gameComplete();
+          // console.log(speed);
+          gameWon();
         }
       }
     }
@@ -184,8 +178,9 @@ $(()=> {
       if(($gameCharacter.offset().left < ($gridArray[i].offset().left + $gridArray[i].width())) &&
       ($gameCharacter.offset().left > $gridArray[i].offset().left) &&
       ($gameCharacter.offset().top > $gridArray[i].offset().top) &&
-      // new line added below
-      (($gameCharacter.offset().left + $gameCharacter.width()) > $gridArray[i].offset().left) &&
+      // new lines added below. doesn't work.
+      // (($gameCharacter.offset().left + $gameCharacter.width()) < $gridArray[i].offset().left) &&
+      // ($gameCharacter.offset().left > $gridArray[i].offset().left) &&
       ($gameCharacter.offset().top < ($gridArray[i].offset().top + $gridArray[i].height()))) {
         console.log('game over');
         $gameCharacter.remove();
@@ -197,11 +192,6 @@ $(()=> {
   // if there's been no collision, display 0
   $playerScore.text(score);
 
-  // function to call game over if the grid goes outside of the main box - not working
-  if($('.box-group').offset().top - $('.box-group').height() <= 126){
-    clearInterval(animateAliensInterval);
-  }
-
   // function to bring up game complete alert
   function gameWon(){
     if(killCount === 45){
@@ -211,6 +201,7 @@ $(()=> {
       audio.src = './sounds/fanfare.wav';
       audio.play();
       clearInterval(animateAliensInterval);
+      (!shoot);
     }
   }
   gameWon();
@@ -221,6 +212,7 @@ $(()=> {
     audio.src = './sounds/explosion 2.wav';
     audio.play();
     clearInterval(animateAliensInterval);
+    (!shoot);
   }
 
   // end document
