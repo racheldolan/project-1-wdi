@@ -120,7 +120,7 @@ $(()=> {
   function animateAliens() {
     console.log(speed);
     if (direction) {
-      if ($('.box-group').position().left + $boxWidth >= $divWidth) direction = false;
+      if ($('.box-group').position().left + $boxWidth >= $divWidth - 20) direction = false;
       // if($('.box-group').position().left + $boxWidth > ($('.main-box').offset().left + $divWidth)) direction = false;
       $('.box-group').css('left', '+=10px');
       $('.box-group').css('bottom', '-=1px');
@@ -153,13 +153,13 @@ $(()=> {
           speed-=10; //90
           $playerScore.text(score);
           if(killCount === 1) {
-            console.log('here', killCount);
+            // console.log('here', killCount);
             clearInterval(animateAliensInterval);
             animateAliensInterval = setInterval(() => {
               animateAliens();
             }, speed);
           } else if(killCount === 5){
-            console.log('here', killCount);
+            // console.log('here', killCount);
             clearInterval(animateAliensInterval);
             animateAliensInterval = setInterval(() => {
               animateAliens();
