@@ -28,11 +28,11 @@ p {
   margin: 0 auto;
   background-color: black;
   // position: relative;
-}
+  .score{
+    display: none;
+    color: white;
 
-.score{
-  display: none;
-  color: white;
+  }
 }
 
 .shooter{
@@ -62,17 +62,17 @@ p {
   display: flex;
   position: absolute;
   flex-direction: row;
-}
 
-.rows .cols {
-  background-color: green;
-  height: 10px;
-  width: 20px;
-  flex-wrap: wrap;
-  text-align: center;
-  margin: 10px;
-  z-index: 1;
-  // position: absolute;
+  .rows .cols {
+    background-color: green;
+    height: 10px;
+    width: 20px;
+    flex-wrap: wrap;
+    text-align: center;
+    margin: 10px;
+    z-index: 1;
+    // position: absolute;
+  }
 }
 
 .instructions{
@@ -86,6 +86,11 @@ p {
   background-color: black;
   color: white;
   line-height: 30px;
+
+  .space-invader {
+    height: 200px;
+    width: 200px;
+  }
 }
 
 .game {
@@ -114,6 +119,12 @@ a {
   text-align: center;
   margin: 0 auto;
   display: none;
+
+  .game-over-text {
+    animation-name: flash;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+  }
 }
 
 .winner {
@@ -129,22 +140,11 @@ a {
   z-index: 3;
 }
 
-.game-over-text{
-  animation-name: flash;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-}
-
 .play-again{
   font-size: 20px;
   animation-name: pulse;
   animation-duration: 2s;
   animation-iteration-count: infinite;
-}
-
-.space-invader {
-  height: 200px;
-  width: 200px;
 }
 
 @keyframes flash {

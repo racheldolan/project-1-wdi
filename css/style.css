@@ -23,10 +23,9 @@ p {
   border: 2px solid green;
   margin: 0 auto;
   background-color: black; }
-
-.score {
-  display: none;
-  color: white; }
+  .main-box .score {
+    display: none;
+    color: white; }
 
 .shooter {
   background-image: url("/Users/racheldolan/development/project-1-wdi/images/shooter2.png");
@@ -53,15 +52,14 @@ p {
   display: flex;
   position: absolute;
   flex-direction: row; }
-
-.rows .cols {
-  background-color: green;
-  height: 10px;
-  width: 20px;
-  flex-wrap: wrap;
-  text-align: center;
-  margin: 10px;
-  z-index: 1; }
+  .box-group .rows .cols {
+    background-color: green;
+    height: 10px;
+    width: 20px;
+    flex-wrap: wrap;
+    text-align: center;
+    margin: 10px;
+    z-index: 1; }
 
 .instructions {
   height: 600px;
@@ -74,6 +72,9 @@ p {
   background-color: black;
   color: white;
   line-height: 30px; }
+  .instructions .space-invader {
+    height: 200px;
+    width: 200px; }
 
 .game {
   height: auto;
@@ -99,6 +100,10 @@ a {
   text-align: center;
   margin: 0 auto;
   display: none; }
+  .game-over .game-over-text {
+    animation-name: flash;
+    animation-duration: 2s;
+    animation-iteration-count: infinite; }
 
 .winner {
   height: 200px;
@@ -112,20 +117,11 @@ a {
   display: none;
   z-index: 3; }
 
-.game-over-text {
-  animation-name: flash;
-  animation-duration: 2s;
-  animation-iteration-count: infinite; }
-
 .play-again {
   font-size: 20px;
   animation-name: pulse;
   animation-duration: 2s;
   animation-iteration-count: infinite; }
-
-.space-invader {
-  height: 200px;
-  width: 200px; }
 
 @keyframes flash {
   from,
