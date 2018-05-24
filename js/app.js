@@ -15,7 +15,7 @@ $(()=> {
   let killCount = 0;
   let speed = 100;
   let score = 0;
-  let shootBoolean = true;
+  let shoot = true;
 
 
   // instructions disappear and the game begins
@@ -69,7 +69,7 @@ $(()=> {
   // on space keydown, fires bullets from character position and plays sound fx
 
   $(document).on('keydown', function(e){
-    if(shootBoolean){
+    if(shoot){
       if(shooterFireArray < 1){
         if(e.which === 32){
           //creates bullet div
@@ -178,6 +178,7 @@ $(()=> {
   //brings up game complete banner and plays sound fx
   function gameWon(){
     if(killCount === 45){
+      shoot = false;
       if($('.winner').css('display', 'none')){
         $('.winner').css('display', 'block');
       }
@@ -190,7 +191,7 @@ $(()=> {
 
   // displays game over banner. plays game over sound fx
   function gameOver(){
-    shootBoolean = false;
+    shoot = false;
     $('.game-over').css('display', 'block');
     audio.src = './sounds/explosion 2.wav';
     audio.play();
