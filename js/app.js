@@ -67,11 +67,11 @@ $(()=> {
     $(document).on('keydown', function(e){
       switch(e.which){
         case 39://right
-          if( $gameCharacter.offset().left + $gameCharacter.width() > ($('.main-box').offset().left + $divWidth)) return null;
+          if( $gameCharacter.offset().left + $gameCharacter.width() > ($('.main-box').offset().left + $divWidth) - 20) return null;
           $gameCharacter.css('left', '+=25px');
           break;
         case 37://left
-          if($gameCharacter.offset().left < ($('.main-box').offset().left + 8)) return null;
+          if($gameCharacter.offset().left < ($('.main-box').offset().left + 20)) return null;
           $gameCharacter.css('left', '-=25px');
           break;
       }
@@ -120,7 +120,7 @@ $(()=> {
   function animateAliens(){
     animateAliensInterval = setInterval(function(){
       if(direction){
-        if($('.box-group').position().left + $boxWidth >= $divWidth) direction = false;
+        if($('.box-group').position().left + $boxWidth >= $divWidth - 20) direction = false;
         // if($('.box-group').position().left + $boxWidth > ($('.main-box').offset().left + $divWidth)) direction = false;
         $('.box-group').css('left', '+=10px');
         $('.box-group').css('bottom', '-=1px');
@@ -129,7 +129,7 @@ $(()=> {
         if($('.box-group').position().left < ($('.main-box').offset().left + 8)) direction = true;
         $('.box-group').css('left', '-=10px');
       }
-    }, 10);
+    }, 100);
   }
   //
   // animateAliensInterval = setInterval(() => {
