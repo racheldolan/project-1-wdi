@@ -13,7 +13,7 @@ $(()=> {
   let direction = true;
   let animateAliensInterval;
   let killCount = 0;
-  let speed = 100;
+  let speed = 200;
   let score = 0;
   let shoot = true;
 
@@ -67,7 +67,6 @@ $(()=> {
   }
 
   // on space keydown, fires bullets from character position and plays sound fx
-
   $(document).on('keydown', function(e){
     if(shoot){
       if(shooterFireArray < 1){
@@ -86,7 +85,6 @@ $(()=> {
       }
     }
   });
-
 
   //fires the bullet and keeps it moving
   function bulletPath(){
@@ -134,7 +132,7 @@ $(()=> {
           $gridArray[j].hide();
           killCount++;
           score++;
-          speed-=3;
+          speed-=2;
           $playerScore.text(score);
           if(killCount === 15) {
             // clears initial interval and creates new interval
@@ -142,7 +140,7 @@ $(()=> {
             animateAliensInterval = setInterval(() => {
               animateAliens();
             }, speed);
-          } else if(killCount === 35){
+          } else if(killCount === 30){
             // clears initial interval and creates new interval
             clearInterval(animateAliensInterval);
             animateAliensInterval = setInterval(() => {
@@ -178,6 +176,7 @@ $(()=> {
   //brings up game complete banner and plays sound fx
   function gameWon(){
     if(killCount === 45){
+      // prevents user from continuing to shoot
       shoot = false;
       if($('.winner').css('display', 'none')){
         $('.winner').css('display', 'block');
@@ -191,6 +190,7 @@ $(()=> {
 
   // displays game over banner. plays game over sound fx
   function gameOver(){
+    // prevents user from continuing to shoot
     shoot = false;
     $('.game-over').css('display', 'block');
     audio.src = './sounds/explosion 2.wav';
