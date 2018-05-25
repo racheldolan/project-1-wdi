@@ -4,7 +4,7 @@
 
 A remake of the retro arcade game Space Invaders. It uses the left and right arrows to move your character along the bottom of the screen and the spacebar to shoot at incoming alien enemy.
 
-<p align="center"><img src='https://github.com/racheldolan/project-1-wdi/blob/master/images/space-invaders-readme-screenshots/Space-Invaders-screenshot-3.gif'></p>
+<p align="center"><img src='https://github.com/racheldolan/project-1-wdi/blob/master/images/space-invaders-readme-screenshots/space-invaders-full-game-game-over.gif'></p>
 
 The build
 
