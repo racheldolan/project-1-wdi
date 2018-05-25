@@ -13,7 +13,7 @@ $(()=> {
   let direction = true;
   let animateAliensInterval;
   let killCount = 0;
-  let speed = 1000;
+  let speed = 200;
   let score = 0;
   let shoot = true;
 
