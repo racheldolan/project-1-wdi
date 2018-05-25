@@ -20,6 +20,9 @@ We had one week to build an in-browser game using HTML, CSS, Javascript & JQuery
 
 ###### If you manage to kill all of the enemy and get the maximum score of 45, you've completed the game and can click the Game Won banner to begin again.
 
+<p align="center"><img src='https://github.com/racheldolan/project-1-wdi/blob/master/images/space-invaders-readme-screenshots/Space-Invaders-instructions.gif'></p>
+
+###### If the aliens reach you it's game over.
 
 # Extra Features
 
