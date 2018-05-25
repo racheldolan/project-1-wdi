@@ -4,7 +4,7 @@
 
 We had one week to build an in-browser game using HTML, CSS, Javascript & JQuery. I built a version of the retro arcade game Space Invaders.
 
-<p align="center"><img src='https://github.com/racheldolan/project-1-wdi/blob/master/images/space-invaders-readme-screenshots/space-invaders-pre-game-start.gif'></p>
+<p align="center"><img src='./images/space-invaders-readme-screenshots/space-invaders-pre-game-start.gif'></p>
 
 # Game Description
 
