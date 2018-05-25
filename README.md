@@ -4,17 +4,22 @@
 
 We had one week to build an in-browser game using HTML, CSS, Javascript & JQuery. I built a version of the retro arcade game Space Invaders.
 
+<p align="center"><img src='https://github.com/racheldolan/project-1-wdi/blob/master/images/space-invaders-readme-screenshots/space-invaders-pre-game-start.gif'></p>
+
 # Game Description
 
-<p align="center"><img src='https://github.com/racheldolan/project-1-wdi/blob/master/images/space-invaders-readme-screenshots/space-invaders-pre-game-start.gif'></p>
+<p align="center"><img src='update with instructions'></p>
 
 ###### The game uses the left and right arrows to move the character along the bottom of the screen within the main box and the spacebar to shoot at incoming alien enemy.
 
 <p align="center"><img src='https://github.com/racheldolan/project-1-wdi/blob/master/images/space-invaders-readme-screenshots/space-invaders-full-game-game-over.gif'></p>
 
-###### As your score increases based on the number of enemy killed, the speed of the grid of aliens increases.
+###### When you click the banner the instructions disappear and gameplay begins. As your score increases based on the number of enemy killed, the speed of the grid of aliens increases.
 
 <p align="center"><img src='https://github.com/racheldolan/project-1-wdi/blob/master/images/space-invaders-readme-screenshots/Space-Invaders-game-won.gif'></p>
+
+###### If you manage to kill all of the enemy and get the maximum score of 45, you've completed the game and can click the Game Won banner to begin again.
+
 
 # Extra Features
 
@@ -27,7 +32,7 @@ The grid of aliens move quicker as time goes on, and I'd like to stretch this ac
 The game isn't mobile responsive, so I'd also like to re-visit it to optimise for different screen sizes.
 
 ---
-#The Build
+# The Build
 
 My biggest challenge was getting to grips with intervals. In order to increase the speed of the alien grid, I had to decrease the interval. I initially thought I could override the interval I'd created, but instead I was creating new ones which left me unable to clear the original interval, which meant the grid wouldn't stop.
 
