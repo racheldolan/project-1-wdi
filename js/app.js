@@ -80,7 +80,7 @@ $(()=> {
           $characterPosition.push($gameCharacter.offset().left);
           $bullet.css('left', ($characterPosition[$characterPosition.length-1] + $gameCharacter.width()/2) + 'px');
           audio.src = 'sounds/shoot.wav';
-          // audio.play();
+          audio.play();
         }
       }
     }
