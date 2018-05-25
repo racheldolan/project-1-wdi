@@ -13,7 +13,7 @@ $(()=> {
   let direction = true;
   let animateAliensInterval;
   let killCount = 0;
-  let speed = 200;
+  let speed = 1000;
   let score = 0;
   let shoot = true;
 
@@ -132,7 +132,7 @@ $(()=> {
           $gridArray[j].hide();
           killCount++;
           score++;
-          speed-=2;
+          speed-=3;
           $playerScore.text(score);
           if(killCount === 15) {
             // clears initial interval and creates new interval
