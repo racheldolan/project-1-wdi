@@ -8,11 +8,11 @@ We had one week to build an in-browser game using HTML, CSS, Javascript & JQuery
 
 # Game Description
 
-<p align="center"><img src='update with instructions'></p>
+<p align="center"><img src='https://github.com/racheldolan/project-1-wdi/blob/master/images/space-invaders-readme-screenshots/Space-Invaders-instructions.gif'></p>
 
 ###### The game uses the left and right arrows to move the character along the bottom of the screen within the main box and the spacebar to shoot at incoming alien enemy.
 
-<p align="center"><img src='https://github.com/racheldolan/project-1-wdi/blob/master/images/space-invaders-readme-screenshots/space-invaders-full-game-game-over.gif'></p>
+<p align="center"><img src='https://github.com/racheldolan/project-1-wdi/blob/master/images/space-invaders-readme-screenshots/space-invaders-full-game.gif'></p>
 
 ###### When you click the banner the instructions disappear and gameplay begins. As your score increases based on the number of enemy killed, the speed of the grid of aliens increases.
 
@@ -20,7 +20,7 @@ We had one week to build an in-browser game using HTML, CSS, Javascript & JQuery
 
 ###### If you manage to kill all of the enemy and get the maximum score of 45, you've completed the game and can click the Game Won banner to begin again.
 
-<p align="center"><img src='https://github.com/racheldolan/project-1-wdi/blob/master/images/space-invaders-readme-screenshots/Space-Invaders-instructions.gif'></p>
+<p align="center"><img src='https://github.com/racheldolan/project-1-wdi/blob/master/images/space-invaders-readme-screenshots/space-invaders-game-over.gif'></p>
 
 ###### If the aliens reach you it's game over.
 
