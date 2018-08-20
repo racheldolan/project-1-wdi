@@ -76,7 +76,7 @@ $(()=> {
           $bullet.addClass('shooter-fire');
           $('.main-box').append($bullet);
           shooterFireArray.push($bullet);
-          // //set initial position of bullet, wherever character is at time
+          //set initial position of bullet, wherever character is at time
           $characterPosition.push($gameCharacter.offset().left);
           $bullet.css('left', ($characterPosition[$characterPosition.length-1] + $gameCharacter.width()/2) + 'px');
           audio.src = 'sounds/shoot.wav';
